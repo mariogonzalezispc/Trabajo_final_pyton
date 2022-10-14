@@ -1,15 +1,7 @@
 import pymysql
 import time
-# import mysql.connector
+Sale= False
 
-# try:
-# 	inmobiliaria = pymysql.connect(host='localhost',
-#                                 user='root',
-#                                 password='1234',
-#                                 db='inmobiliaria')
-# 	print("Conexión correcta")
-# except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-# 	print("Ocurrió un error al conectar: ", e)
 
 
 def cabecera_presentacion():
@@ -20,7 +12,34 @@ def cabecera_presentacion():
     print("-------------------------------------------------------------------")
     print()
     print()
-    time.sleep(2)
+    time.sleep(4)
+
+
+def menu_opciones():
+    limpia()
+    print("-------------------------------------------------------------------")
+    print("| Inmobiliaria sistema de gestion                   ISPC TST 2022 |") 
+    print("-------------------------------------------------------------------")   
+    print("| Opcion 0 : Prueba conexion a la base de datos                   |")
+    print("-------------------------------------------------------------------")
+    print("| Opcion 1 : Carga propiedad para administrar o vender            |")
+    print("| Opcion 2 : Modifica propiedad para administrar o vender         |")
+    print("| Opcion 3 : Borra propiedad para administrar o vender            |")
+    print("| Opcion 4 : Consulta de propiedad                                |")
+    print("-------------------------------------------------------------------")
+    print("| Opcion 5 : Listado general de propiedades                       |")
+    print("| Opcion 6 : Listado de propiedades en venta                      |")
+    print("| Opcion 7 : Listado de propiedades en alquiler                   |")
+    print("| Opcion 8 : Listado de propiedades vendidas                      |")
+    print("| Opcion 9 : Listado de propiedades alquiladas                    |")
+    print("-------------------------------------------------------------------")
+
+
+
+
+
+
+
 
 
 def limpia():
@@ -29,86 +48,88 @@ def limpia():
 
 
 def conexion():
-
-
-try:
-    inmobiliaria = pymysql.connect(host='localhost',
+    try:
+        print("Aguarde comprobando Conexión base de datos")
+        inmobiliaria = pymysql.connect(host='localhost',
                                    user='root',
                                    password='1234',
                                    db='inmobiliaria')
-    print("Conexión correcta")
-except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-    print("Ocurrió un error al conectar: ", e)
-return
+        time.sleep(2)
+        print("Conexión correcta  !!!")
+        print()
+        time.sleep(2)
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        print()
+        print()    
+    return
 
 
-def two():
-    return "February"
+def ingresa_propiedad():
+    print("Carga de propiedad para administrar")
+    print()   
+    direccion = input("Ingrese direccion : ")
+    dueno = input("Nombre del dueño : ")
+
+    return 
 
 
-def three():
-    return "March"
+def modifica_propiedad():
+    print("modifica propiedad para administrar")
+    return
 
 
-def four():
-    return "April"
+def borra_propiedad():
+    print("borra propiedad para administrar")
+    return 
 
 
-def five():
-    return "May"
+def consulta_propiedad():
+    print("consulta propiedad para administrar")
+    return 
 
 
-def six():
+def listado_propiedades():
     return "June"
 
 
-def seven():
+def listado_en_venta():
     return "July"
 
 
-def eight():
+def listado_en_alquiler():
     return "August"
 
 
-def nine():
+def listado_vendidas():
     return "September"
 
 
-def ten():
+def listado_alquiladas():
     return "October"
-
-
-def eleven():
-    return "November"
-
-
-def twelve():
-    return "December"
 
 
 limpia()
 cabecera_presentacion()
-limpia()
 
-
-print()
-print()
-opcion = input("Ingrese opcion : ")
-print("Opcion ingresada : " + opcion)
-
-
-switcher = {
+while Sale == False:
+    limpia()
+    menu_opciones()
+    print()
+    print()
+    opcion = input("Ingrese opcion : ")
+    # print("Opcion ingresada : " + opcion)
+    print()
+    switcher = {
     "0": conexion,
-    # "1": ingresa_propiedad,
-    # "2": modifica_propiedad,
-    # "3": elimina_propiedad,
-    # "4": consulta_propiedad,
-    # "5": listado_propiedades,
-    # "6": listado_en_venta,
-    # "7": listado_en_alquiler,
-    # "8": listado_vendidas,
+    "1": ingresa_propiedad,
+     "2": modifica_propiedad,
+     "3": borra_propiedad,
+     "4": consulta_propiedad,
+     "5": listado_propiedades,
+     "6": listado_en_venta,
+     "7": listado_en_alquiler,
+     "8": listado_vendidas,
     # "9": listado_alquiladas,
-}
-
-
-switcher[opcion]()
+    }
+    switcher[opcion]()
