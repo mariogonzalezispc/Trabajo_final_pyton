@@ -1,21 +1,28 @@
 import pymysql
 import time
+from datetime import datetime
+
 Sale= False
 
 def cabecera_presentacion():
     print("-------------------------------------------------------------------")
-    print("| ISPC TS Telecomunicaciones                                      |")
-    print("| Materia: Programacion  Lenguaje : Python                        |")
-    print("| Alumno : Mario Gonzalez                                         |")
+    print("| ISPC Tecnico Superior en Telecomunicaciones  Cohorte 2022       |")
+    print("-------------------------------------------------------------------")
+    print("| Materia  : Programacion           Lenguaje : Python 1er año     |")
+    print("| Profesor : Lisandro Lanfranco                                   |")
+    print("| Profesor : Kevin  Kessler                                       |")
+    print("| Alumno   : Mario Gonzalez                                       |")
     print("-------------------------------------------------------------------")
     print()
     print()
     time.sleep(4)
 
 def menu_opciones():
+    tiempo = datetime.now()
+    dato_dia = tiempo.strftime("%d/%m/%Y, %H:%M:%S")
     limpia()
     print("-------------------------------------------------------------------")
-    print("| Inmobiliaria sistema de gestion                   ISPC TST 2022 |") 
+    print("| Inmobiliaria sistema de gestion            "+dato_dia+" |") 
     print("-------------------------------------------------------------------")   
     print("| Opcion 0 : Prueba conexion a la base de datos                   |")
     print("-------------------------------------------------------------------")
@@ -36,31 +43,43 @@ def limpia():
     from os import system
     system("cls")
 
+
+def conecta():
+        inmobiliaria = pymysql.connect(host='localhost',
+        user='root',
+        password='1234',
+        db='inmobiliaria')
+
+
 def conexion():
     try:
         print("Aguarde comprobando Conexión base de datos")
-        inmobiliaria = pymysql.connect(host='localhost',
-                                   user='root',
-                                   password='1234',
-                                   db='inmobiliaria')
+        conecta()
         time.sleep(2)
         print("Conexión exitosa !!!")
         print()
         time.sleep(2)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
+        # print("Ocurrió un error al conectar: ", e)
+        print("Ocurrió un error al conectar: ")
         print("NO tiene conexion a la base de datos !!!!!!!")
         print()
-        time.sleep(3)    
+        time.sleep(4)    
     return
 
 def ingresa_propiedad():
-    print("Carga de propiedad para administrar")
-    print()   
-    direccion = input("Ingrese direccion : ")
-    dueno = input("Nombre del dueño : ")
-    return 
-
+    try:
+        conecta()
+        print("Carga de propiedad para administrar")
+        print()   
+        direccion = input("Ingrese direccion : ")
+        dueno = input("Nombre del dueño : ")
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ")
+        print("NO tiene conexion a la base de datos !!!!!!!")
+        print()
+        time.sleep(4)    
+    return
 
 def modifica_propiedad():
     print("modifica propiedad para administrar")
@@ -93,6 +112,7 @@ def listado_alquiladas():
     return 
 
 def sale():
+    limpia()
     quit()
     return 
 
@@ -109,16 +129,16 @@ while Sale == False:
     # print("Opcion ingresada : " + opcion)
     print()
     switcher = {
-    "0": conexion,
-    "1": ingresa_propiedad,
-     "2": modifica_propiedad,
-     "3": borra_propiedad,
-     "4": consulta_propiedad,
-     "5": listado_propiedades,
-     "6": listado_en_venta,
-     "7": listado_en_alquiler,
-     "8": listado_vendidas,
-     "9": listado_alquiladas,
+      "0": conexion,
+      "1": ingresa_propiedad,
+      "2": modifica_propiedad,
+      "3": borra_propiedad,
+      "4": consulta_propiedad,
+      "5": listado_propiedades,
+      "6": listado_en_venta,
+      "7": listado_en_alquiler,
+      "8": listado_vendidas,
+      "9": listado_alquiladas,
      "10": sale
     }
     switcher[opcion]()
