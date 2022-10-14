@@ -19,10 +19,10 @@ def cabecera_presentacion():
 
 def menu_opciones():
     tiempo = datetime.now()
-    dato_dia = tiempo.strftime("%d/%m/%Y, %H:%M:%S")
+    dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
     limpia()
     print("-------------------------------------------------------------------")
-    print("| Inmobiliaria sistema de gestion            "+dato_dia+" |") 
+    print("| Inmobiliaria sistema de gestion             "+dato_dia+" |") 
     print("-------------------------------------------------------------------")   
     print("| Opcion 0 : Prueba conexion a la base de datos                   |")
     print("-------------------------------------------------------------------")
@@ -45,9 +45,9 @@ def limpia():
 
 
 def conecta():
-        inmobiliaria = pymysql.connect(host='localhost',
-        user='root',
-        password='1234',
+        inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
+        user='ispc_inmobiliaria',
+        password='ispc_inmobiliaria',
         db='inmobiliaria')
 
 
@@ -60,7 +60,7 @@ def conexion():
         print()
         time.sleep(2)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        # print("Ocurrió un error al conectar: ", e)
+        print("Ocurrió un error al conectar: ", e)
         print("Ocurrió un error al conectar: ")
         print("NO tiene conexion a la base de datos !!!!!!!")
         print()
