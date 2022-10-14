@@ -2,8 +2,6 @@ import pymysql
 import time
 Sale= False
 
-
-
 def cabecera_presentacion():
     print("-------------------------------------------------------------------")
     print("| ISPC TS Telecomunicaciones                                      |")
@@ -13,7 +11,6 @@ def cabecera_presentacion():
     print()
     print()
     time.sleep(4)
-
 
 def menu_opciones():
     limpia()
@@ -32,20 +29,12 @@ def menu_opciones():
     print("| Opcion 7 : Listado de propiedades en alquiler                   |")
     print("| Opcion 8 : Listado de propiedades vendidas                      |")
     print("| Opcion 9 : Listado de propiedades alquiladas                    |")
+    print("| Opcion 10: Sale del programa                                    |")    
     print("-------------------------------------------------------------------")
-
-
-
-
-
-
-
-
 
 def limpia():
     from os import system
     system("cls")
-
 
 def conexion():
     try:
@@ -55,22 +44,21 @@ def conexion():
                                    password='1234',
                                    db='inmobiliaria')
         time.sleep(2)
-        print("Conexión correcta  !!!")
+        print("Conexión exitosa !!!")
         print()
         time.sleep(2)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
+        print("NO tiene conexion a la base de datos !!!!!!!")
         print()
-        print()    
+        time.sleep(3)    
     return
-
 
 def ingresa_propiedad():
     print("Carga de propiedad para administrar")
     print()   
     direccion = input("Ingrese direccion : ")
     dueno = input("Nombre del dueño : ")
-
     return 
 
 
@@ -78,35 +66,35 @@ def modifica_propiedad():
     print("modifica propiedad para administrar")
     return
 
-
 def borra_propiedad():
     print("borra propiedad para administrar")
     return 
-
 
 def consulta_propiedad():
     print("consulta propiedad para administrar")
     return 
 
-
 def listado_propiedades():
-    return "June"
-
+    print("Listado general de propiedades")
+    return 
 
 def listado_en_venta():
-    return "July"
-
+    print("Listado de propiedades a la venta")
+    return 
 
 def listado_en_alquiler():
-    return "August"
-
+    print("Listado de propiedades en alquiler")
+    return 
 
 def listado_vendidas():
-    return "September"
-
+    return
 
 def listado_alquiladas():
-    return "October"
+    return 
+
+def sale():
+    quit()
+    return 
 
 
 limpia()
@@ -130,6 +118,7 @@ while Sale == False:
      "6": listado_en_venta,
      "7": listado_en_alquiler,
      "8": listado_vendidas,
-    # "9": listado_alquiladas,
+     "9": listado_alquiladas,
+     "10": sale
     }
     switcher[opcion]()
