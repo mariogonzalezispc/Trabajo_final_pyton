@@ -1,7 +1,8 @@
 import pymysql  # importo el conector de python con Mysql
 import time  # importo la libreria rutinas de delay
 from datetime import datetime  # importo la libreria de fecha y hora
-Sale = False  # declaro variable booleana|
+Sale = False  # declaro variable booleana
+Estado = False 
 
 
 def cabecera_presentacion():  # inicio funcion con parte grafica para consola
@@ -44,6 +45,7 @@ def menu_opciones():          # inicio menu de opciones en grafico para consola
 def limpia():                 # limpia la pantalla de la consola 
     from os import system
     system("cls")
+    Estado = False
 
 def conecta():                # genera la conexion a la base de datos remota
     inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
@@ -176,6 +178,19 @@ while Sale == False:
     print()
     print()
     opcion = input("Ingrese opcion : ")
+
+    # while Estado == False:
+    #     opcion = input("Ingrese opcion : ")
+    #     if (opcion.isnumeric()):
+    #         print("Opcion ingresada : " + opcion)
+    #         Estado = True
+    #     else:
+    #         Estado = False
+    #         print(" El sistema solo acepta numeros")
+    #         print(" Reintente !!!!")
+    #         time.sleep(4)
+    #         opcion= None
+
     # print("Opcion ingresada : " + opcion)
     print()
     switch = {
