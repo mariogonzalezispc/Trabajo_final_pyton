@@ -1,9 +1,9 @@
-import pymysql  # importo el conector de python con Mysql
-import time  # importo la libreria rutinas de delay
+import pymysql          # importo el conector de python con Mysql
+import time             # importo la libreria rutinas de delay
 from datetime import datetime  # importo la libreria de fecha y hora
-Sale = False  # declaro variable booleana
-Estado = False 
-
+Sale = False            # declaro variable booleana
+Estado = False          # declaro variable booleana
+opcion = ''
 
 def cabecera_presentacion():  # inicio funcion con parte grafica para consola
     print("-------------------------------------------------------------------")
@@ -45,13 +45,18 @@ def menu_opciones():          # inicio menu de opciones en grafico para consola
 def limpia():                 # limpia la pantalla de la consola 
     from os import system
     system("cls")
-    Estado = False
 
 def conecta():                # genera la conexion a la base de datos remota
     inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
                                    user='ispc_inmobiliaria',
                                    password='ispc_inmobiliaria',
                                    db='inmobiliaria')
+
+def conecta_mal():            # avisa de la mala conexion 
+    print("NO tiene conexion a la base de datos !!!!!!!")
+    print()
+    time.sleep(6)
+    return
 
 def prueba_conexion():        # prueba en cualquier momento la conexion a la base de datos
     try:
@@ -63,7 +68,7 @@ def prueba_conexion():        # prueba en cualquier momento la conexion a la bas
         time.sleep(2)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def ingresa_propiedad():      # permite cargar una propiedad
@@ -75,7 +80,7 @@ def ingresa_propiedad():      # permite cargar una propiedad
         dueno = input("Nombre del dueño : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def modifica_propiedad():
@@ -85,7 +90,7 @@ def modifica_propiedad():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def borra_propiedad():
@@ -95,7 +100,7 @@ def borra_propiedad():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def consulta_propiedad():
@@ -105,7 +110,7 @@ def consulta_propiedad():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def listado_propiedades():
@@ -115,17 +120,17 @@ def listado_propiedades():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
-def listado_en_venta():
+def listado_en_venta():  
     try:
         conecta()
         print("Listado de propiedades a la venta")
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def listado_en_alquiler():
@@ -135,7 +140,7 @@ def listado_en_alquiler():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def listado_vendidas():
@@ -145,7 +150,7 @@ def listado_vendidas():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def listado_alquiladas():
@@ -155,7 +160,7 @@ def listado_alquiladas():
         print()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        conexion_mal()
+        conecta_mal()
     return
 
 def sale():
@@ -163,11 +168,6 @@ def sale():
     quit()
     return
 
-def conexion_mal():
-    print("NO tiene conexion a la base de datos !!!!!!!")
-    print()
-    time.sleep(6)
-    return
 
 limpia()
 cabecera_presentacion()
@@ -177,33 +177,32 @@ while Sale == False:
     menu_opciones()
     print()
     print()
-    opcion = input("Ingrese opcion : ")
+    #opcion = input("Ingrese opcion : ")
 
-    # while Estado == False:
-    #     opcion = input("Ingrese opcion : ")
-    #     if (opcion.isnumeric()):
-    #         print("Opcion ingresada : " + opcion)
-    #         Estado = True
-    #     else:
-    #         Estado = False
-    #         print(" El sistema solo acepta numeros")
-    #         print(" Reintente !!!!")
-    #         time.sleep(4)
-    #         opcion= None
-
-    # print("Opcion ingresada : " + opcion)
-    print()
-    switch = {
-        "0": prueba_conexion,
-        "1": ingresa_propiedad,
-        "2": modifica_propiedad,
-        "3": borra_propiedad,
-        "4": consulta_propiedad,
-        "5": listado_propiedades,
-        "6": listado_en_venta,
-        "7": listado_en_alquiler,
-        "8": listado_vendidas,
-        "9": listado_alquiladas,
-        "10": sale
-    }
-    switch[opcion]()
+    while Estado == False:
+        opcion = input("Ingrese opcion : ")
+        if (opcion.isnumeric()):
+            #print("Opcion ingresada : " + opcion)
+            print()
+            switch = {
+            "0": prueba_conexion,
+            "1": ingresa_propiedad,
+            "2": modifica_propiedad,
+            "3": borra_propiedad,
+            "4": consulta_propiedad,
+            "5": listado_propiedades,
+            "6": listado_en_venta,
+            "7": listado_en_alquiler,
+            "8": listado_vendidas,
+            "9": listado_alquiladas,
+            "10": sale
+            }
+            switch[opcion]()
+            break
+        else:
+            print()
+            print("El sistema solo acepta numeros")
+            print("Reintente !!!!")
+            print()
+            time.sleep(4)
+            break
