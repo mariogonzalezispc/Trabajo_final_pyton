@@ -6,7 +6,7 @@ Sale= False
 
 def cabecera_presentacion():
     print("-------------------------------------------------------------------")
-    print("| ISPC Tecnico Superior en Telecomunicaciones  Cohorte 2022       |")
+    print("| ISPC Tecnico Superior en Telecomunicaciones        Cohorte 2022 |")
     print("-------------------------------------------------------------------")
     print("| Materia  : Programacion           Lenguaje : Python 1er año     |")
     print("| Profesor : Lisandro Lanfranco                                   |")
@@ -22,7 +22,7 @@ def menu_opciones():
     dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
     limpia()
     print("-------------------------------------------------------------------")
-    print("| Inmobiliaria sistema de gestion             "+dato_dia+" |") 
+    print("| Sistema de gestion Inmobiliaria             "+dato_dia+" |") 
     print("-------------------------------------------------------------------")   
     print("| Opcion 0 : Prueba conexion a la base de datos                   |")
     print("-------------------------------------------------------------------")
@@ -61,10 +61,7 @@ def conexion():
         time.sleep(2)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
-        print("Ocurrió un error al conectar: ")
-        print("NO tiene conexion a la base de datos !!!!!!!")
-        print()
-        time.sleep(4)    
+        conexion_mal()
     return
 
 def ingresa_propiedad():
@@ -75,47 +72,100 @@ def ingresa_propiedad():
         direccion = input("Ingrese direccion : ")
         dueno = input("Nombre del dueño : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ")
-        print("NO tiene conexion a la base de datos !!!!!!!")
-        print()
-        time.sleep(4)    
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()    
     return
 
 def modifica_propiedad():
-    print("modifica propiedad para administrar")
+    try:
+        conecta()
+        print("modifica propiedad para administrar")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal() 
     return
 
 def borra_propiedad():
-    print("borra propiedad para administrar")
-    return 
+    try:
+        conecta()
+        print("borra propiedad para administrar")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
+    return
 
 def consulta_propiedad():
-    print("consulta propiedad para administrar")
-    return 
+    try:
+        conecta()
+        print("consulta propiedad para administrar")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
+    return
 
 def listado_propiedades():
-    print("Listado general de propiedades")
-    return 
+    try:
+        conecta()
+        print("Listado general de propiedades")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
+    return
 
 def listado_en_venta():
-    print("Listado de propiedades a la venta")
-    return 
+    try:
+        conecta()
+        print("Listado de propiedades a la venta")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
+    return
 
 def listado_en_alquiler():
-    print("Listado de propiedades en alquiler")
-    return 
+    try:
+        conecta()
+        print("Listado de propiedades en alquiler")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
+    return
 
 def listado_vendidas():
+    try:
+        conecta()
+        print("Listado de propiedades VENDIDAS")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
     return
 
 def listado_alquiladas():
-    return 
+    try:
+        conecta()
+        print("Listado de propiedades ALQUILADAS")
+        print()   
+    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+        print("Ocurrió un error al conectar: ", e)
+        conexion_mal()   
+    return
 
 def sale():
     limpia()
     quit()
     return 
 
+def conexion_mal():
+    print("NO tiene conexion a la base de datos !!!!!!!")
+    print()
+    time.sleep(6)
+    return 
 
 limpia()
 cabecera_presentacion()
@@ -128,7 +178,7 @@ while Sale == False:
     opcion = input("Ingrese opcion : ")
     # print("Opcion ingresada : " + opcion)
     print()
-    switcher = {
+    switch = {
       "0": conexion,
       "1": ingresa_propiedad,
       "2": modifica_propiedad,
@@ -141,4 +191,4 @@ while Sale == False:
       "9": listado_alquiladas,
      "10": sale
     }
-    switcher[opcion]()
+    switch[opcion]()
