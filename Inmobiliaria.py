@@ -1,9 +1,8 @@
-import pymysql          # importo el conector de python con Mysql
-import time             # importo la libreria rutinas de delay
-from datetime import datetime  # importo la libreria de fecha y hora
-Sale = False            # declaro variable booleana
-Estado = False          # declaro variable booleana
-opcion = ''
+import pymysql                  # importo el conector de python con Mysql
+import time                     # importo la libreria rutinas de delay
+from datetime import datetime   # importo la libreria de fecha y hora
+Sale = False                    # declaro variable booleana
+Estado = False                  # declaro variable booleana
 
 def cabecera_presentacion():  # inicio funcion con parte grafica para consola
     print("-------------------------------------------------------------------")
@@ -168,7 +167,6 @@ def sale():
     quit()
     return
 
-
 limpia()
 cabecera_presentacion()
 
@@ -177,32 +175,28 @@ while Sale == False:
     menu_opciones()
     print()
     print()
-    #opcion = input("Ingrese opcion : ")
-
-    while Estado == False:
-        opcion = input("Ingrese opcion : ")
-        if (opcion.isnumeric()):
+    opcion = input("Ingrese opcion : ")
+    if (opcion.isnumeric()):
             #print("Opcion ingresada : " + opcion)
             print()
             switch = {
-            "0": prueba_conexion,
-            "1": ingresa_propiedad,
-            "2": modifica_propiedad,
-            "3": borra_propiedad,
-            "4": consulta_propiedad,
-            "5": listado_propiedades,
-            "6": listado_en_venta,
-            "7": listado_en_alquiler,
-            "8": listado_vendidas,
-            "9": listado_alquiladas,
-            "10": sale
-            }
+                "0": prueba_conexion,
+                "1": ingresa_propiedad,
+                "2": modifica_propiedad,
+                "3": borra_propiedad,
+                "4": consulta_propiedad,
+                "5": listado_propiedades,
+                "6": listado_en_venta,
+                "7": listado_en_alquiler,
+                "8": listado_vendidas,
+                "9": listado_alquiladas,
+                "10": sale
+                }
             switch[opcion]()
-            break
-        else:
+    else:
             print()
             print("El sistema solo acepta numeros")
             print("Reintente !!!!")
             print()
             time.sleep(4)
-            break
+
