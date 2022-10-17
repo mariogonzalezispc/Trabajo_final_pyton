@@ -1,7 +1,6 @@
 import pymysql
 import time
 from datetime import datetime
-
 Sale= False
 
 def cabecera_presentacion():
@@ -43,13 +42,11 @@ def limpia():
     from os import system
     system("cls")
 
-
 def conecta():
         inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
         user='ispc_inmobiliaria',
         password='ispc_inmobiliaria',
         db='inmobiliaria')
-
 
 def conexion():
     try:
