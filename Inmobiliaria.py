@@ -4,7 +4,7 @@ from datetime import datetime   # importo la libreria de fecha y hora
 Sale = False                    # declaro variable booleana
 Estado = False                  # declaro variable booleana
 
-def cabecera_presentacion():  # inicio funcion con parte grafica para consola
+def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print("-------------------------------------------------------------------")
     print("| ISPC Tecnico Superior en Telecomunicaciones        Cohorte 2022 |")
     print("-------------------------------------------------------------------")
@@ -17,7 +17,7 @@ def cabecera_presentacion():  # inicio funcion con parte grafica para consola
     print()
     time.sleep(4)
 
-def menu_opciones():          # inicio menu de opciones en grafico para consola
+def menu_opciones():            # inicio menu de opciones en grafico para consola
     tiempo = datetime.now()  # genero objeto tiempo para fecha y hora
     # ordeno la forma de ver fecha y hora
     dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
@@ -41,11 +41,11 @@ def menu_opciones():          # inicio menu de opciones en grafico para consola
     print("| Opcion 10: Sale del programa                                    |")
     print("-------------------------------------------------------------------")
 
-def limpia():                 # limpia la pantalla de la consola 
+def limpia():                   # limpia la pantalla de la consola 
     from os import system
     system("cls")
 
-def conecta():                # genera la conexion a la base de datos remota
+def conecta():                  # genera la conexion a la base de datos remota
 
     global inmobiliaria
     inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
@@ -53,13 +53,13 @@ def conecta():                # genera la conexion a la base de datos remota
                                    password='ispc_inmobiliaria',
                                    db='inmobiliaria')
 
-def conecta_mal():            # avisa de la mala conexion 
+def conecta_mal():              # avisa de la mala conexion 
     print("NO tiene conexion a la base de datos !!!!!!!")
     print()
     time.sleep(6)
     return
 
-def prueba_conexion():        # prueba en cualquier momento la conexion a la base de datos
+def prueba_conexion():          # prueba en cualquier momento la conexion a la base de datos
     try:
         print("Aguarde comprobando Conexión base de datos")
         conecta()
@@ -72,7 +72,7 @@ def prueba_conexion():        # prueba en cualquier momento la conexion a la bas
         conecta_mal()
     return
 
-def ingresa_propiedad():      # permite cargar una propiedad
+def ingresa_propiedad():        # permite cargar una propiedad
     try:
         conecta()
         print("Carga de propiedad para administrar")
