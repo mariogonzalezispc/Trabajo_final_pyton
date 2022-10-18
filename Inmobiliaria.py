@@ -46,6 +46,8 @@ def limpia():                 # limpia la pantalla de la consola
     system("cls")
 
 def conecta():                # genera la conexion a la base de datos remota
+
+    global inmobiliaria
     inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
                                    user='ispc_inmobiliaria',
                                    password='ispc_inmobiliaria',
@@ -107,6 +109,22 @@ def consulta_propiedad():
         conecta()
         print("consulta propiedad para administrar")
         print()
+        envio = inmobiliaria.cursor()
+        envio.execute("SELECT * FROM `inmobiliaria`.`Propiedad` LIMIT 10;")
+        retorno = envio.fetchall()
+        limpia()                    # limpia la pantalla
+        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
+                                    # ordeno la forma de ver fecha y hora
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        print("-------------------------------------------------------------------")
+        print("| Sistema de gestion Inmobiliaria             " +
+              dato_dia+" |")  # declaro fecha y hora de apertura
+        print("-------------------------------------------------------------------")
+        for x in retorno:
+            print("|", x[5], "|")
+            print("-------------------------------------------------------------------")
+        opcion = input("Presione ENTER para continuar : ")
+
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
