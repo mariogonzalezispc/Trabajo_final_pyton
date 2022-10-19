@@ -2,7 +2,7 @@ import pymysql                  # importo el conector de python con Mysql
 import time                     # importo la libreria rutinas de delay
 from datetime import datetime   # importo la libreria de fecha y hora
 Sale = False                    # declaro variable booleana
-#Estado = False                  # declaro variable booleana
+
 
 def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print("-------------------------------------------------------------------")
