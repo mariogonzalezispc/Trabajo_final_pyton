@@ -209,9 +209,9 @@ limpia()
 cabecera_presentacion()
 
 
-while Sale == False:
-        limpia()
-        menu_opciones()
+while Sale == False:        # generamos un while para uso continuo
+        limpia()            # limpia la pantalla de la consola
+        menu_opciones()     # llamamos la funcion menu de opciones
         print()
         print()
         try:
