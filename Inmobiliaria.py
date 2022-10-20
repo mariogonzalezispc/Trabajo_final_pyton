@@ -72,9 +72,12 @@ def prueba_conexion():          # prueba en cualquier momento la conexion a la b
     try:
         print("Aguarde comprobando Conexión base de datos")
         conecta()
+        print()
         time.sleep(2)
+        color_amarillo()        # cambio el color del print amarillo
         print("Conexión exitosa !!!")
         print()
+        color_blanco()          # cambio el color del print a blanco
         time.sleep(2)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
@@ -127,24 +130,31 @@ def borra_propiedad():
 def listado_propiedades():
     try:
         conecta()
-        # print("consulta propiedad para administrar")
-        # print()
         envio = inmobiliaria.cursor()
         envio.execute("SELECT * FROM `inmobiliaria`.`Propiedad` LIMIT 10;")
-        retorno = envio.fetchall()
+        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
         limpia()                    # limpia la pantalla
         tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
-                               # ordeno la forma de ver fecha y hora
+                                    # ordeno la forma de ver fecha y hora
         dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
-        print("-------------------------------------------------------------------------------------------")
+        rellenar3()                 # traza la linea de la consola
         print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
-              dato_dia+" |")  # declaro fecha y hora de apertura
-        print("-------------------------------------------------------------------------------------------")
-        for x in retorno:
+              dato_dia+" |")        # declaro fecha y hora de apertura
+        rellenar3()                 # traza la linea de la consola 
+        for x in retorno:           # inicio el recorrido del array de regreso de la BD
             init()
-            print("| "+ Fore.GREEN + x[5], Fore.WHITE +"|",Fore.BLUE + x[6],Fore.WHITE +"|", Fore.YELLOW + x[7], Fore.WHITE +"|")
-
-        print("-------------------------------------------------------------------")
+            relleno = 18-len(x[5])
+            print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
+            print(Fore.MAGENTA + x[5],end="")   # Dueño
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+            relleno = 22-len(x[6])              # calculo cantidad de relleno
+            print(Fore.YELLOW + x[6],end="")    # Dueño
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+            relleno = 10-len(x[7])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[7],end="")     # Telefono del dueño
+            rellenar2(relleno)                  # calculo cantidad de relleno
+            rellenar3()                         # traza la linea de la consola          
+    
         opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
@@ -202,6 +212,80 @@ def sale():                     # inicia funcion de salir del programa
     return
 
 
+def rellenar1(relleno):
+    try:
+        for i in range(relleno):
+            if i < relleno:
+                print(" ",end="")
+        init()        
+        print(Fore.WHITE +" | ",end="")
+    except  (ValueError) as e:
+            print("Ocurrió un error crear la consola ", e)
+    return
+
+
+def rellenar2(relleno):
+
+    try:
+        for i in range(relleno):
+            if i < relleno:
+                print(" ",end="")
+        init()        
+        print(Fore.WHITE +" |")
+    except  (ValueError) as e:
+            print("Ocurrió un error crear la consola ", e)
+    return
+
+
+def rellenar3():
+    try:
+        init()
+        print(Fore.WHITE +"-",end="")
+        for i in range(90):
+            if i < 89:
+                print(Fore.WHITE +"-",end="")
+        print(Fore.WHITE +"-")
+    except  (ValueError) as e:
+            print("Ocurrió un error crear la consola ", e)
+    return
+
+
+def color_rojo():
+    try:
+        init()
+        print(Fore.RED)
+    except  (ValueError) as e:
+            print("Ocurrió un error cargar el color ROJO ", e)
+    return
+
+
+def color_verde():
+    try:
+        init()
+        print(Fore.GREEN)
+    except  (ValueError) as e:
+            print("Ocurrió un error cargar el color VERDE ", e)
+    return
+
+
+def color_blanco():
+    try:
+        init()
+        print(Fore.WHITE)
+    except  (ValueError) as e:
+            print("Ocurrió un error cargar el color BLANCO ", e)
+    return
+
+
+def color_amarillo():
+    try:
+        init()
+        print(Fore.YELLOW)
+    except  (ValueError) as e:
+            print("Ocurrió un error cargar el color BLANCO ", e)
+    return
+
+
 limpia()
 cabecera_presentacion()
 
@@ -232,7 +316,11 @@ while True:                     # generamos un while para uso continuo
                 print("Reintente !!!!")             # imprimo el reintento
                 time.sleep(3)                       # demora de 3 segundos para leer consola
         except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
-                print("El sistema solo acepta numeros ", e) # imprimo texto mas error
+                color_rojo()                        # cambio color del print a rojo
+                print("El sistema solo acepta numeros ", e) 
+                # print("El sistema solo acepta numeros ", e) # imprimo texto mas error
                 print()                             # salto de linea
+                color_verde()                       # cambio el color del print a verde
                 print("Reintente !!!!")             # imprimo texto
+                color_blanco()                      # cambio el color del print a blanco
                 time.sleep(3)                       # demora de 3 segundos
