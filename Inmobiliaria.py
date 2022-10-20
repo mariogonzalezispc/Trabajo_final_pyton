@@ -12,7 +12,9 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print("| Profesor : Lisandro Lanfranco                                   |")
     print("| Profesor : Kevin  Kessler                                       |")
     print("| Repositorio :                                                   |")
-    print("|   https://github.com/mariogonzalezispc/Trabajo_final_pyton      |")
+    color_verde()
+    print("| https://github.com/mariogonzalezispc/Trabajo_final_pyton        |")
+    color_blanco()
     print("| Alumnos  : Barea, Silvana       recursosssbb                    |")
     print("|            Martinez, Mauro      Mauro-Martinez                  |")
     print("|            Zarate, Tadeo        TadeoZarate                     |")
@@ -73,12 +75,14 @@ def prueba_conexion():          # prueba en cualquier momento la conexion a la b
         print("Aguarde comprobando Conexión base de datos")
         conecta()
         print()
+        if inmobiliaria.connect():
+            color_amarillo()
+            print("Conexión exitosa !!!")
+            print()
         time.sleep(2)
-        color_amarillo()        # cambio el color del print amarillo
-        print("Conexión exitosa !!!")
-        print()
         color_blanco()          # cambio el color del print a blanco
         time.sleep(2)
+        inmobiliaria.close()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -253,7 +257,7 @@ def rellenar3():
 def color_rojo():
     try:
         init()
-        print(Fore.RED)
+        print(Fore.RED,end="")
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color ROJO ", e)
     return
@@ -262,7 +266,7 @@ def color_rojo():
 def color_verde():
     try:
         init()
-        print(Fore.GREEN)
+        print(Fore.GREEN,end="")
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color VERDE ", e)
     return
@@ -271,7 +275,7 @@ def color_verde():
 def color_blanco():
     try:
         init()
-        print(Fore.WHITE)
+        print(Fore.WHITE,end="")
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
@@ -280,7 +284,7 @@ def color_blanco():
 def color_amarillo():
     try:
         init()
-        print(Fore.YELLOW)
+        print(Fore.YELLOW,end="")
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
