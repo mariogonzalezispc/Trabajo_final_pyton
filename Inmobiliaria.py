@@ -11,10 +11,12 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print("| Materia  : Programacion           Lenguaje : Python 1er año     |")
     print("| Profesor : Lisandro Lanfranco                                   |")
     print("| Profesor : Kevin  Kessler                                       |")
-    print("| Alumnos  : Barea, Silvana                                       |")
-    print("|            Martinez, Mauro                                      |")
-    print("|            Zarate, Tadeo                                        |")
-    print("|            Gonzalez, Mario                                      |")
+    print("| Repositorio :                                                   |")
+    print("|   https://github.com/mariogonzalezispc/Trabajo_final_pyton      |")
+    print("| Alumnos  : Barea, Silvana       recursosssbb                    |")
+    print("|            Martinez, Mauro      Mauro-Martinez                  |")
+    print("|            Zarate, Tadeo        TadeoZarate                     |")
+    print("|            Gonzalez, Mario      mariogonzalezispc               |")
     print("-------------------------------------------------------------------")
     print()
     print()
@@ -22,7 +24,7 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
 
 
 def menu_opciones():            # inicio menu de opciones en grafico para consola
-    tiempo = datetime.now()  # genero objeto tiempo para fecha y hora
+    tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
     # ordeno la forma de ver fecha y hora
     dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
     limpia()  # limpia la ventana de la consola
@@ -86,8 +88,13 @@ def ingresa_propiedad():        # permite cargar una propiedad
         conecta()
         print("Carga de propiedad para administrar")
         print()
-        direccion = input("Ingrese direccion : ")
-        duenio = input("Nombre del dueño : ")
+        direccion = str(input("Ingrese direccion : "))
+        duenio = str(input("Nombre del dueño : "))
+        print("Cargar el tipo de operacion ")
+        print("Para alquilar ingrese 1 ")
+        print("Para vender   ingrese 2 ")        
+        tipo = str(input("Ingrese tipo de operacion : "))
+
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -199,111 +206,44 @@ def listado_alquiladas():
     return
 
 
-def sale():
-    limpia()
-    quit()
+def sale():                     # inicia funcion de salir del programa
+    limpia()                    # limpia la pantalla
+    quit()                      # sale del sistema
     return
 
 
 limpia()
 cabecera_presentacion()
 
-
-while Sale == False:        # generamos un while para uso continuo
-        limpia()            # limpia la pantalla de la consola
-        menu_opciones()     # llamamos la funcion menu de opciones
-        print()
-        print()
-        try:
-            opcion = int(input("Ingrese opcion : "))
-            switch = {
-                0: prueba_conexion,
-                1: ingresa_propiedad,
-                2: modifica_propiedad,
-                3: borra_propiedad,
-                4: consulta_propiedad,
-                5: listado_propiedades,
-                6: listado_en_venta,
-                7: listado_en_alquiler,
-                8: listado_vendidas,
-                9: listado_alquiladas,
-                10: sale
+while True:                     # generamos un while para uso continuo
+        limpia()                # limpia la pantalla de la consola
+        menu_opciones()         # llamamos la funcion menu de opciones
+        print()                 # salto de linea
+        print()                 # salto de linea
+        try:                    # inicio del try
+            opcion = int(input("Ingrese opcion : "))# Input para que usuario cargue opcion
+            switch = {                              # Inicia el diccionario
+                0: prueba_conexion,                 # opcion 0
+                1: ingresa_propiedad,               # opcion 1
+                2: modifica_propiedad,              # opcion 2
+                3: borra_propiedad,                 # opcion 3
+                4: consulta_propiedad,              # opcion 4
+                5: listado_propiedades,             # opcion 5  
+                6: listado_en_venta,                # opcion 6
+                7: listado_en_alquiler,             # opcion 7
+                8: listado_vendidas,                # opcion 8
+                9: listado_alquiladas,              # opcion 9
+                10: sale                            # opcion 10
                 }
-            if opcion < len(switch):
-                 switch[opcion]()
+            if opcion < len(switch):                # verifico el tamaño del diccionario
+                 switch[opcion]()                   # llamo a la funcion del diccionario
             else:
-                print("NO es una opcion valida")
-                print()
-                print("Reintente !!!!")
-                time.sleep(3)
-        except  (ValueError) as e:
-                print("El sistema solo acepta numeros ", e)
-                print()
-                print("Reintente !!!!")
-                time.sleep(3)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # opcion = int(input("Ingrese opcion : "))
-        # switch = {
-        #         0: prueba_conexion,
-        #         1: ingresa_propiedad,
-        #         2: modifica_propiedad,
-        #         3: borra_propiedad,
-        #         4: consulta_propiedad,
-        #         5: listado_propiedades,
-        #         6: listado_en_venta,
-        #         7: listado_en_alquiler,
-        #         8: listado_vendidas,
-        #         9: listado_alquiladas,
-        #         10: sale
-        #         }
-        # if opcion < len(switch):
-        #     switch[opcion]()
-        # else:
-        #     print("NO es una opcion valida")
-        #     print()
-        #     print("Reintente !!!!")
-        #     time.sleep(5)
-
-    #         switch = {
-    #             "0": prueba_conexion,
-    #             "1": ingresa_propiedad,
-    #             "2": modifica_propiedad,
-    #             "3": borra_propiedad,
-    #             "4": consulta_propiedad,
-    #             "5": listado_propiedades,
-    #             "6": listado_en_venta,
-    #             "7": listado_en_alquiler,
-    #             "8": listado_vendidas,
-    #             "9": listado_alquiladas,
-    #             "10": sale
-    #             }
-
-    # if  switch[opcion]():
-    #     print("SI es una opcion valida")
-    #     time.sleep()
-
-    # else:
-    #     print("NO es una opcion valida")
-
-    # # else:
-    # #     print()
-    # #         print("El sistema solo acepta numeros")
-    # #         print("Reintente !!!!")
-    # #         print()
-    # #         time.sleep(4)
+                print("NO es una opcion valida")    # ingreso si la opcion no esta en el diccionario
+                print()                             # salto de linea
+                print("Reintente !!!!")             # imprimo el reintento
+                time.sleep(3)                       # demora de 3 segundos para leer consola
+        except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
+                print("El sistema solo acepta numeros ", e) # imprimo texto mas error
+                print()                             # salto de linea
+                print("Reintente !!!!")             # imprimo texto
+                time.sleep(3)                       # demora de 3 segundos
