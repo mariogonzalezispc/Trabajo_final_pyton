@@ -1,24 +1,27 @@
-import pymysql          # importo el conector de python con Mysql
-import time             # importo la libreria rutinas de delay
-from datetime import datetime  # importo la libreria de fecha y hora
-Sale = False            # declaro variable booleana
-Estado = False          # declaro variable booleana
-opcion = ''
+import pymysql                  # importo el conector de python con Mysql
+import time                     # importo la libreria rutinas de delay
+from datetime import datetime   # importo la libreria de fecha y hora
+Sale = False                    # declaro variable booleana
 
-def cabecera_presentacion():  # inicio funcion con parte grafica para consola
+
+def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print("-------------------------------------------------------------------")
     print("| ISPC Tecnico Superior en Telecomunicaciones        Cohorte 2022 |")
     print("-------------------------------------------------------------------")
     print("| Materia  : Programacion           Lenguaje : Python 1er año     |")
     print("| Profesor : Lisandro Lanfranco                                   |")
     print("| Profesor : Kevin  Kessler                                       |")
-    print("| Alumno   : Mario Gonzalez                                       |")
+    print("| Alumnos  : Barea, Silvana                                       |")
+    print("|            Martinez, Mauro                                      |")
+    print("|            Zarate, Tadeo                                        |")
+    print("|            Gonzalez, Mario                                      |")
     print("-------------------------------------------------------------------")
     print()
     print()
     time.sleep(4)
 
-def menu_opciones():          # inicio menu de opciones en grafico para consola
+
+def menu_opciones():            # inicio menu de opciones en grafico para consola
     tiempo = datetime.now()  # genero objeto tiempo para fecha y hora
     # ordeno la forma de ver fecha y hora
     dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
@@ -42,23 +45,29 @@ def menu_opciones():          # inicio menu de opciones en grafico para consola
     print("| Opcion 10: Sale del programa                                    |")
     print("-------------------------------------------------------------------")
 
-def limpia():                 # limpia la pantalla de la consola 
+
+def limpia():                   # limpia la pantalla de la consola
     from os import system
     system("cls")
 
-def conecta():                # genera la conexion a la base de datos remota
+
+def conecta():                  # genera la conexion a la base de datos remota
+
+    global inmobiliaria
     inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
                                    user='ispc_inmobiliaria',
                                    password='ispc_inmobiliaria',
                                    db='inmobiliaria')
 
-def conecta_mal():            # avisa de la mala conexion 
+
+def conecta_mal():              # avisa de la mala conexion
     print("NO tiene conexion a la base de datos !!!!!!!")
     print()
     time.sleep(6)
     return
 
-def prueba_conexion():        # prueba en cualquier momento la conexion a la base de datos
+
+def prueba_conexion():          # prueba en cualquier momento la conexion a la base de datos
     try:
         print("Aguarde comprobando Conexión base de datos")
         conecta()
@@ -71,17 +80,19 @@ def prueba_conexion():        # prueba en cualquier momento la conexion a la bas
         conecta_mal()
     return
 
-def ingresa_propiedad():      # permite cargar una propiedad
+
+def ingresa_propiedad():        # permite cargar una propiedad
     try:
         conecta()
         print("Carga de propiedad para administrar")
         print()
         direccion = input("Ingrese direccion : ")
-        dueno = input("Nombre del dueño : ")
+        duenio = input("Nombre del dueño : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
+
 
 def modifica_propiedad():
     try:
@@ -93,6 +104,7 @@ def modifica_propiedad():
         conecta_mal()
     return
 
+
 def borra_propiedad():
     try:
         conecta()
@@ -103,15 +115,34 @@ def borra_propiedad():
         conecta_mal()
     return
 
+
 def consulta_propiedad():
     try:
         conecta()
         print("consulta propiedad para administrar")
         print()
+        envio = inmobiliaria.cursor()
+        envio.execute("SELECT * FROM `inmobiliaria`.`Propiedad` LIMIT 10;")
+        retorno = envio.fetchall()
+        limpia()                    # limpia la pantalla
+        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
+                               # ordeno la forma de ver fecha y hora
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        print("-------------------------------------------------------------------")
+        print("| Sistema de gestion Inmobiliaria             " +
+              dato_dia+" |")  # declaro fecha y hora de apertura
+        print("-------------------------------------------------------------------")
+        for x in retorno:
+            print("|", x[5], "|", x[6], "|", x[7], "|")
+
+        print("-------------------------------------------------------------------")
+        opcion = input("Presione ENTER para continuar : ")
+
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
+
 
 def listado_propiedades():
     try:
@@ -123,7 +154,8 @@ def listado_propiedades():
         conecta_mal()
     return
 
-def listado_en_venta():  
+
+def listado_en_venta():
     try:
         conecta()
         print("Listado de propiedades a la venta")
@@ -132,6 +164,7 @@ def listado_en_venta():
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
+
 
 def listado_en_alquiler():
     try:
@@ -143,6 +176,7 @@ def listado_en_alquiler():
         conecta_mal()
     return
 
+
 def listado_vendidas():
     try:
         conecta()
@@ -152,6 +186,7 @@ def listado_vendidas():
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
+
 
 def listado_alquiladas():
     try:
@@ -163,6 +198,7 @@ def listado_alquiladas():
         conecta_mal()
     return
 
+
 def sale():
     limpia()
     quit()
@@ -172,37 +208,102 @@ def sale():
 limpia()
 cabecera_presentacion()
 
-while Sale == False:
-    limpia()
-    menu_opciones()
-    print()
-    print()
-    #opcion = input("Ingrese opcion : ")
 
-    while Estado == False:
-        opcion = input("Ingrese opcion : ")
-        if (opcion.isnumeric()):
-            #print("Opcion ingresada : " + opcion)
-            print()
+while Sale == False:
+        limpia()
+        menu_opciones()
+        print()
+        print()
+        try:
+            opcion = int(input("Ingrese opcion : "))
             switch = {
-            "0": prueba_conexion,
-            "1": ingresa_propiedad,
-            "2": modifica_propiedad,
-            "3": borra_propiedad,
-            "4": consulta_propiedad,
-            "5": listado_propiedades,
-            "6": listado_en_venta,
-            "7": listado_en_alquiler,
-            "8": listado_vendidas,
-            "9": listado_alquiladas,
-            "10": sale
-            }
-            switch[opcion]()
-            break
-        else:
-            print()
-            print("El sistema solo acepta numeros")
-            print("Reintente !!!!")
-            print()
-            time.sleep(4)
-            break
+                0: prueba_conexion,
+                1: ingresa_propiedad,
+                2: modifica_propiedad,
+                3: borra_propiedad,
+                4: consulta_propiedad,
+                5: listado_propiedades,
+                6: listado_en_venta,
+                7: listado_en_alquiler,
+                8: listado_vendidas,
+                9: listado_alquiladas,
+                10: sale
+                }
+            if opcion < len(switch):
+                 switch[opcion]()
+            else:
+                print("NO es una opcion valida")
+                print()
+                print("Reintente !!!!")
+                time.sleep(3)
+        except  (ValueError) as e:
+                print("El sistema solo acepta numeros ", e)
+                print()
+                print("Reintente !!!!")
+                time.sleep(3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # opcion = int(input("Ingrese opcion : "))
+        # switch = {
+        #         0: prueba_conexion,
+        #         1: ingresa_propiedad,
+        #         2: modifica_propiedad,
+        #         3: borra_propiedad,
+        #         4: consulta_propiedad,
+        #         5: listado_propiedades,
+        #         6: listado_en_venta,
+        #         7: listado_en_alquiler,
+        #         8: listado_vendidas,
+        #         9: listado_alquiladas,
+        #         10: sale
+        #         }
+        # if opcion < len(switch):
+        #     switch[opcion]()
+        # else:
+        #     print("NO es una opcion valida")
+        #     print()
+        #     print("Reintente !!!!")
+        #     time.sleep(5)
+
+    #         switch = {
+    #             "0": prueba_conexion,
+    #             "1": ingresa_propiedad,
+    #             "2": modifica_propiedad,
+    #             "3": borra_propiedad,
+    #             "4": consulta_propiedad,
+    #             "5": listado_propiedades,
+    #             "6": listado_en_venta,
+    #             "7": listado_en_alquiler,
+    #             "8": listado_vendidas,
+    #             "9": listado_alquiladas,
+    #             "10": sale
+    #             }
+
+    # if  switch[opcion]():
+    #     print("SI es una opcion valida")
+    #     time.sleep()
+
+    # else:
+    #     print("NO es una opcion valida")
+
+    # # else:
+    # #     print()
+    # #         print("El sistema solo acepta numeros")
+    # #         print("Reintente !!!!")
+    # #         print()
+    # #         time.sleep(4)
