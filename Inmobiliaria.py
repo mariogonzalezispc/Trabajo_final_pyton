@@ -127,24 +127,31 @@ def borra_propiedad():
 def listado_propiedades():
     try:
         conecta()
-        # print("consulta propiedad para administrar")
-        # print()
         envio = inmobiliaria.cursor()
         envio.execute("SELECT * FROM `inmobiliaria`.`Propiedad` LIMIT 10;")
         retorno = envio.fetchall()
         limpia()                    # limpia la pantalla
         tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
-                               # ordeno la forma de ver fecha y hora
+                                    # ordeno la forma de ver fecha y hora
         dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
-        print("-------------------------------------------------------------------------------------------")
+        rellenar3()                 # traza la linea de la consola
         print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
-              dato_dia+" |")  # declaro fecha y hora de apertura
-        print("-------------------------------------------------------------------------------------------")
+              dato_dia+" |")        # declaro fecha y hora de apertura
+        rellenar3()                 # traza la linea de la consola 
         for x in retorno:
             init()
-            print("| "+ Fore.GREEN + x[5], Fore.WHITE +"|",Fore.BLUE + x[6],Fore.WHITE +"|", Fore.YELLOW + x[7], Fore.WHITE +"|")
-
-        print("-------------------------------------------------------------------")
+            relleno = 18-len(x[5])
+            print(Fore.WHITE +"| ", end="")
+            print(Fore.MAGENTA + x[5],end="")
+            rellenar1(relleno)
+            relleno = 22-len(x[6])
+            print(Fore.YELLOW + x[6],end="")
+            rellenar1(relleno)
+            relleno = 10-len(x[7])
+            print(Fore.GREEN + x[7],end="")
+            rellenar2(relleno)
+            rellenar3()                 # traza la linea de la consola          
+    
         opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
@@ -200,6 +207,45 @@ def sale():                     # inicia funcion de salir del programa
     limpia()                    # limpia la pantalla
     quit()                      # sale del sistema
     return
+
+def rellenar1(relleno):
+    try:
+        for i in range(relleno):
+            if i < relleno:
+                print(" ",end="")
+        init()        
+        print(Fore.WHITE +" | ",end="")
+    except  (ValueError) as e:
+            print("Ocurrió un error crear la consola ", e)
+    return
+
+
+def rellenar2(relleno):
+
+    try:
+        for i in range(relleno):
+            if i < relleno:
+                print(" ",end="")
+        init()        
+        print(Fore.WHITE +" |")
+    except  (ValueError) as e:
+            print("Ocurrió un error crear la consola ", e)
+    return
+
+
+def rellenar3():
+    try:
+        init()
+        print(Fore.WHITE +"-",end="")
+        for i in range(90):
+            if i < 89:
+                print(Fore.WHITE +"-",end="")
+        print(Fore.WHITE +"-")
+    except  (ValueError) as e:
+            print("Ocurrió un error crear la consola ", e)
+    return
+
+
 
 
 limpia()
