@@ -1,7 +1,7 @@
 import pymysql                  # importo el conector de python con Mysql
 import time                     # importo la libreria rutinas de delay
 from datetime import datetime   # importo la libreria de fecha y hora
-Sale = False                    # declaro variable booleana
+from colorama import Fore, init # importo libreria para darle color al texto
 
 
 def cabecera_presentacion():    # inicio funcion con parte grafica para consola
@@ -37,14 +37,13 @@ def menu_opciones():            # inicio menu de opciones en grafico para consol
     print("| Opcion 1 : Carga propiedad para administrar o vender            |")
     print("| Opcion 2 : Modifica propiedad para administrar o vender         |")
     print("| Opcion 3 : Borra propiedad para administrar o vender            |")
-    print("| Opcion 4 : Consulta de propiedad                                |")
     print("-------------------------------------------------------------------")
-    print("| Opcion 5 : Listado general de propiedades                       |")
-    print("| Opcion 6 : Listado de propiedades en venta                      |")
-    print("| Opcion 7 : Listado de propiedades en alquiler                   |")
-    print("| Opcion 8 : Listado de propiedades vendidas                      |")
-    print("| Opcion 9 : Listado de propiedades alquiladas                    |")
-    print("| Opcion 10: Sale del programa                                    |")
+    print("| Opcion 4 : Listado general de propiedades                       |")
+    print("| Opcion 5 : Listado de propiedades en venta                      |")
+    print("| Opcion 6 : Listado de propiedades en alquiler                   |")
+    print("| Opcion 7 : Listado de propiedades vendidas                      |")
+    print("| Opcion 8 : Listado de propiedades alquiladas                    |")
+    print("| Opcion 9 : Sale del programa                                    |")
     print("-------------------------------------------------------------------")
 
 
@@ -116,35 +115,9 @@ def borra_propiedad():
     try:
         conecta()
         print("borra propiedad para administrar")
+        print("No tiene funcionalidad todavia")        
         print()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def consulta_propiedad():
-    try:
-        conecta()
-        print("consulta propiedad para administrar")
-        print()
-        envio = inmobiliaria.cursor()
-        envio.execute("SELECT * FROM `inmobiliaria`.`Propiedad` LIMIT 10;")
-        retorno = envio.fetchall()
-        limpia()                    # limpia la pantalla
-        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
-                               # ordeno la forma de ver fecha y hora
-        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
-        print("-------------------------------------------------------------------")
-        print("| Sistema de gestion Inmobiliaria             " +
-              dato_dia+" |")  # declaro fecha y hora de apertura
-        print("-------------------------------------------------------------------")
-        for x in retorno:
-            print("|", x[5], "|", x[6], "|", x[7], "|")
-
-        print("-------------------------------------------------------------------")
-        opcion = input("Presione ENTER para continuar : ")
-
+        time.sleep(3)
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -154,8 +127,25 @@ def consulta_propiedad():
 def listado_propiedades():
     try:
         conecta()
-        print("Listado general de propiedades")
-        print()
+        # print("consulta propiedad para administrar")
+        # print()
+        envio = inmobiliaria.cursor()
+        envio.execute("SELECT * FROM `inmobiliaria`.`Propiedad` LIMIT 10;")
+        retorno = envio.fetchall()
+        limpia()                    # limpia la pantalla
+        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
+                               # ordeno la forma de ver fecha y hora
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        print("-------------------------------------------------------------------------------------------")
+        print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
+              dato_dia+" |")  # declaro fecha y hora de apertura
+        print("-------------------------------------------------------------------------------------------")
+        for x in retorno:
+            init()
+            print("| "+ Fore.GREEN + x[5], Fore.WHITE +"|",Fore.BLUE + x[6],Fore.WHITE +"|", Fore.YELLOW + x[7], Fore.WHITE +"|")
+
+        print("-------------------------------------------------------------------")
+        opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -227,13 +217,12 @@ while True:                     # generamos un while para uso continuo
                 1: ingresa_propiedad,               # opcion 1
                 2: modifica_propiedad,              # opcion 2
                 3: borra_propiedad,                 # opcion 3
-                4: consulta_propiedad,              # opcion 4
-                5: listado_propiedades,             # opcion 5  
-                6: listado_en_venta,                # opcion 6
-                7: listado_en_alquiler,             # opcion 7
-                8: listado_vendidas,                # opcion 8
-                9: listado_alquiladas,              # opcion 9
-                10: sale                            # opcion 10
+                4: listado_propiedades,             # opcion 4  
+                5: listado_en_venta,                # opcion 5
+                6: listado_en_alquiler,             # opcion 6
+                7: listado_vendidas,                # opcion 7
+                8: listado_alquiladas,              # opcion 8
+                9: sale                             # opcion 9
                 }
             if opcion < len(switch):                # verifico el tamaño del diccionario
                  switch[opcion]()                   # llamo a la funcion del diccionario
