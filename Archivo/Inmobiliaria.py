@@ -133,7 +133,18 @@ def listado_propiedades():
     try:
         conecta()
         envio = inmobiliaria.cursor()
-        envio.execute("SELECT * FROM `inmobiliaria`.`Propietario` LIMIT 10;")
+        sql = "SELECT Propiedad.Direccion,\
+            Propiedad.Habitaciones,\
+            Propiedad.`Baños`,\
+            Propiedad.Patio,\
+            Propiedad.Cochera,\
+            Propietario.Id_Propietario,\
+            Propietario.Nombre,\
+            Propietario.Contacto\
+            FROM Propiedad, Propietario\
+            WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
+        # sql = "SELECT Propiedad.Direccion,Propiedad.Habitaciones,Propiedad.`Baños`,Propiedad.Patio,Propiedad.Cochera,Propietario.Id_Propietario,Propietario.Nombre,Propietario.Contacto FROM Propiedad WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
+        envio.execute(sql)
         retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
         limpia()                    # limpia la pantalla
         tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
@@ -143,21 +154,49 @@ def listado_propiedades():
         print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
               dato_dia+" |")        # declaro fecha y hora de apertura
         rellenar3()                 # traza la linea de la consola 
-        print("|       Dueño        |       Direccion        |  Telefono  | " )
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Propietario     |" )
         rellenar3() 
         for x in retorno:           # inicio el recorrido del array de regreso de la BD
             init()
-            relleno = 18-len(x[1])
+            relleno = 22-len(x[0])
             print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
-            print(Fore.MAGENTA + x[1],end="")   # Dueño
+            print(Fore.MAGENTA + x[0],end="")   # Propiedad 
             rellenar1(relleno)                  # relleno los espacios para poner el tabulador
-            relleno = 22-len(x[2])              # calculo cantidad de relleno
-            print(Fore.YELLOW + x[2],end="")    # Dueño
+
+            relleno = 2-len(x[1])               # calculo cantidad de relleno
+            print(Fore.YELLOW + " "+x[1],end="")# Habitaciones
             rellenar1(relleno)                  # relleno los espacios para poner el tabulador
-            relleno = 10-len(x[3])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[3],end="")     # Telefono del dueño
+
+            relleno = 2-len(x[2])               # calculo cantidad de relleno
+            print(Fore.GREEN +"  "+ x[2],end="")# Baños
+            rellenar1(relleno)                  # calculo cantidad de relleno
+
+            relleno = 3-len(x[3])               # calculo cantidad de relleno
+            if x[3]=='1':
+                Patio=" Si"
+            else:
+                Patio=" No"
+            print(Fore.GREEN + Patio,end="")    # Patio
+            rellenar1(relleno)                  # calculo cantidad de relleno
+
+            relleno = 3-len(x[4])               # calculo cantidad de relleno
+            if x[4]=='1':
+                Garage="  Si"
+            else:
+                Garage="  No"
+            print(Fore.GREEN + Garage,end="")   # Garage
+            rellenar1(relleno)                  # calculo cantidad de relleno
+ 
+
+            relleno = 18-len(x[6])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[6],end="")     # Telefono del dueño
+            rellenar1(relleno)                  # calculo cantidad de relleno
+
+            relleno = 10-len(x[7])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[7],end="")     # Telefono del dueño
             rellenar2(relleno)                  # calculo cantidad de relleno
-            rellenar3()                         # traza la linea de la consola          
+
+        rellenar3()                             # traza la linea de la consola          
     
         opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
