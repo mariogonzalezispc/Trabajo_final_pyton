@@ -143,7 +143,6 @@ def listado_propiedades():
             Propietario.Contacto\
             FROM Propiedad, Propietario\
             WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
-        # sql = "SELECT Propiedad.Direccion,Propiedad.Habitaciones,Propiedad.`Baños`,Propiedad.Patio,Propiedad.Cochera,Propietario.Id_Propietario,Propietario.Nombre,Propietario.Contacto FROM Propiedad WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
         envio.execute(sql)
         retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
         limpia()                    # limpia la pantalla
@@ -174,17 +173,19 @@ def listado_propiedades():
             relleno = 3-len(x[3])               # calculo cantidad de relleno
             if x[3]=='1':
                 Patio=" Si"
+                print(Fore.GREEN + Patio,end="") 
             else:
                 Patio=" No"
-            print(Fore.GREEN + Patio,end="")    # Patio
+                print(Fore.RED + Patio,end="")  # Patio
             rellenar1(relleno)                  # calculo cantidad de relleno
 
             relleno = 3-len(x[4])               # calculo cantidad de relleno
             if x[4]=='1':
                 Garage="  Si"
+                print(Fore.GREEN + Garage,end="")
             else:
                 Garage="  No"
-            print(Fore.GREEN + Garage,end="")   # Garage
+                print(Fore.RED + Garage,end="")   # Garage
             rellenar1(relleno)                  # calculo cantidad de relleno
  
 
