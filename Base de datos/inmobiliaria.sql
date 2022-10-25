@@ -12,3 +12,15 @@ CREATE TABLE `Propiedad` (
 
 
 SELECT * FROM `Propiedad` LIMIT 100;
+
+
+SELECT Propiedad.Direccion,
+ Propiedad.Habitaciones,
+ Propiedad.`Baños`,
+ Propiedad.Patio,
+ Propiedad.Cochera,
+ Propietario.Id_Propietario,
+ Propietario.Nombre,
+ Propietario.Contacto
+FROM Propiedad, Propietario
+WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario
