@@ -1,33 +1,26 @@
-from multiprocessing import context
-import mysql.connector          # importo conector de mysql.connector
-import time                     # importo la libreria rutinas de delay
-# importo libreria para darle color al texto
-from Archivo.Inmobiliaria import color_amarillo, color_blanco, color_rojo
+import mysql.connector
+from mysql.connector import Error
 
-# genera la conexion a la base de datos remota
-def prueba_conexion():
-    try:
-        inmobiliaria = mysql.connector.connect(host='mgalarmasserver1.ddns.net',
-                                           user='ispc_inmobiliaria',
-                                           password='ispc_inmobiliaria',
-                                           db='inmobiliaria')
-
-        if inmobiliaria.is_connected():
-            color_amarillo()
-            print("Conexión exitosa !!!")
-            print()
-            time.sleep(2)
-            color_blanco()
-    except:
-        color_rojo()
-        print("NO tiene conexion a la base de datos !!!!!!!")
+try:
+    connection = mysql.connector.connect(host='mgalarmasserver1.ddns.net',  # direccion de la base de datos
+                                         database='inmobiliaria',           # nombre de la base de datos
+                                         user='ispc_inmobiliaria',          # usuario de la bd
+                                         password='ispc_inmobiliaria')      # password de la bd
+    if connection.is_connected():                       # condicional de connection
+        db_Info = connection.get_server_info()          # informacion de server
+        print()                                         # salto de linea
+        print("Conexion Exitosa !!! ")                  # imprimo mensaje
+        print("Version: ", db_Info)                     # imprimo mensaje + db_Info
+        cursor = connection.cursor()                    # inicio cursor de la bd
+        cursor.execute("select database();")            # selecciono la base de datos declarada
+        record = cursor.fetchone()                      # grabo en record el retorno de cursor
+        print("Conectado a la base de datos: ", record) # imprimo mensaje + nombre de la BD conectada
+        print()                                         # salto de linea
+except Error as e:                                      # exception error
+    print("No de pudo conectar a la base de datos !!", e)
+finally:
+    if connection.is_connected():
+        cursor.close()
+        connection.close()
+        print("Conexion base de datos cerrada !!")
         print()
-        time.sleep(6)
-
-    finally:
-        if inmobiliaria.is_connected():
-            inmobiliaria.close()
-            color_rojo()
-            print("conexion cerrada")
-            color_rojo()
-        

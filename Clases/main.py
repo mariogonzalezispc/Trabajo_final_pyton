@@ -1,7 +1,20 @@
-import pymysql                  # importo el conector de python con Mysql
+import time
 import time                     # importo la libreria rutinas de delay
 from datetime import datetime   # importo la libreria de fecha y hora
 from colorama import Fore, init # importo libreria para darle color al texto
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def cabecera_presentacion():    # inicio funcion con parte grafica para consola
@@ -23,7 +36,6 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print()
     print()
     time.sleep(4)
-
 
 def menu_opciones():            # inicio menu de opciones en grafico para consola
     tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
@@ -48,173 +60,14 @@ def menu_opciones():            # inicio menu de opciones en grafico para consol
     print("| Opcion 9 : Sale del programa                                    |")
     print("-------------------------------------------------------------------")
 
-
 def limpia():                   # limpia la pantalla de la consola
     from os import system
     system("cls")
-
-
-def conecta():                  # genera la conexion a la base de datos remota
-    global inmobiliaria
-    inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',
-                                   user='ispc_inmobiliaria',
-                                   password='ispc_inmobiliaria',
-                                   db='inmobiliaria')
-
-
-def conecta_mal():              # avisa de la mala conexion
-    print("NO tiene conexion a la base de datos !!!!!!!")
-    print()
-    time.sleep(6)
-    return
-
-
-def prueba_conexion():          # prueba en cualquier momento la conexion a la base de datos
-    try:
-        print("Aguarde comprobando Conexión base de datos")
-        conecta()
-        print()
-        color_amarillo()
-        print("Conexión exitosa !!!")
-        print()
-        time.sleep(2)
-        color_blanco()          # cambio el color del print a blanco
-        time.sleep(2)
-        inmobiliaria.close()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def ingresa_propiedad():        # permite cargar una propiedad
-    try:
-        conecta()
-        print("Carga de propiedad para administrar")
-        print()
-        direccion = str(input("Ingrese direccion : "))
-        duenio = str(input("Nombre del dueño : "))
-        print("Cargar el tipo de operacion ")
-        print("Para alquilar ingrese 1 ")
-        print("Para vender   ingrese 2 ")        
-        tipo = str(input("Ingrese tipo de operacion : "))
-
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def modifica_propiedad():
-    try:
-        conecta()
-        print("modifica propiedad para administrar")
-        print()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def borra_propiedad():
-    try:
-        conecta()
-        print("borra propiedad para administrar")
-        print("No tiene funcionalidad todavia")        
-        print()
-        time.sleep(3)
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def listado_propiedades():
-    try:
-        conecta()
-        envio = inmobiliaria.cursor()
-        envio.execute("SELECT * FROM `inmobiliaria`.`Propietario` LIMIT 10;")
-        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
-        limpia()                    # limpia la pantalla
-        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
-                                    # ordeno la forma de ver fecha y hora
-        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
-        rellenar3()                 # traza la linea de la consola
-        print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
-              dato_dia+" |")        # declaro fecha y hora de apertura
-        rellenar3()                 # traza la linea de la consola 
-        print("|       Dueño        |       Direccion        |  Telefono  | " )
-        rellenar3() 
-        for x in retorno:           # inicio el recorrido del array de regreso de la BD
-            init()
-            relleno = 18-len(x[1])
-            print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
-            print(Fore.MAGENTA + x[1],end="")   # Dueño
-            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
-            relleno = 22-len(x[2])              # calculo cantidad de relleno
-            print(Fore.YELLOW + x[2],end="")    # Dueño
-            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
-            relleno = 10-len(x[3])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[3],end="")     # Telefono del dueño
-            rellenar2(relleno)                  # calculo cantidad de relleno
-            rellenar3()                         # traza la linea de la consola          
-    
-        opcion = input("Presione ENTER para continuar : ")
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def listado_en_venta():
-    try:
-        conecta()
-        print("Listado de propiedades a la venta")
-        print()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def listado_en_alquiler():
-    try:
-        conecta()
-        print("Listado de propiedades en alquiler")
-        print()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def listado_vendidas():
-    try:
-        conecta()
-        print("Listado de propiedades VENDIDAS")
-        print()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
-
-def listado_alquiladas():
-    try:
-        conecta()
-        print("Listado de propiedades ALQUILADAS")
-        print()
-    except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
-        print("Ocurrió un error al conectar: ", e)
-        conecta_mal()
-    return
-
 
 def sale():                     # inicia funcion de salir del programa
     limpia()                    # limpia la pantalla
     quit()                      # sale del sistema
     return
-
 
 def rellenar1(relleno):
     try:
@@ -226,7 +79,6 @@ def rellenar1(relleno):
     except  (ValueError) as e:
             print("Ocurrió un error crear la consola ", e)
     return
-
 
 def rellenar2(relleno):
 
@@ -240,7 +92,6 @@ def rellenar2(relleno):
             print("Ocurrió un error crear la consola ", e)
     return
 
-
 def rellenar3():
     try:
         init()
@@ -253,7 +104,6 @@ def rellenar3():
             print("Ocurrió un error crear la consola ", e)
     return
 
-
 def color_rojo():
     try:
         init()
@@ -261,7 +111,6 @@ def color_rojo():
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color ROJO ", e)
     return
-
 
 def color_verde():
     try:
@@ -271,7 +120,6 @@ def color_verde():
             print("Ocurrió un error cargar el color VERDE ", e)
     return
 
-
 def color_blanco():
     try:
         init()
@@ -279,7 +127,6 @@ def color_blanco():
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
-
 
 def color_amarillo():
     try:
@@ -327,4 +174,4 @@ while True:                     # generamos un while para uso continuo
                 color_verde()                       # cambio el color del print a verde
                 print("Reintente !!!!")             # imprimo texto
                 color_blanco()                      # cambio el color del print a blanco
-                time.sleep(3)                       # demora de 3 segundos
+                time.sleep(3)   
