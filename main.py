@@ -2,20 +2,7 @@ import time
 import time                     # importo la libreria rutinas de delay
 from datetime import datetime   # importo la libreria de fecha y hora
 from colorama import Fore, init # importo libreria para darle color al texto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+from Conexion.conexion import BD_inmobiliaria
 
 def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print("-------------------------------------------------------------------")
@@ -136,11 +123,8 @@ def color_amarillo():
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
 
-
-limpia()
-cabecera_presentacion()
-
-while True:                     # generamos un while para uso continuo
+def menu_principal():
+    while True:                     # generamos un while para uso continuo
         limpia()                # limpia la pantalla de la consola
         menu_opciones()         # llamamos la funcion menu de opciones
         print()                 # salto de linea
@@ -175,3 +159,7 @@ while True:                     # generamos un while para uso continuo
                 print("Reintente !!!!")             # imprimo texto
                 color_blanco()                      # cambio el color del print a blanco
                 time.sleep(3)   
+
+limpia()
+cabecera_presentacion()
+menu_principal()
