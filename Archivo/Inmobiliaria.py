@@ -128,7 +128,6 @@ def borra_propiedad():
         conecta_mal()
     return
 
-
 def listado_propiedades():
     try:
         conecta()
@@ -153,7 +152,7 @@ def listado_propiedades():
         print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
               dato_dia+" |")        # declaro fecha y hora de apertura
         rellenar3()                 # traza la linea de la consola 
-        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Propietario     |" )
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Propietario     |  Contacto  |" )
         rellenar3() 
         for x in retorno:           # inicio el recorrido del array de regreso de la BD
             init()
@@ -205,7 +204,6 @@ def listado_propiedades():
         conecta_mal()
     return
 
-
 def listado_en_venta():
     try:
         conecta()
@@ -215,7 +213,6 @@ def listado_en_venta():
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
-
 
 def listado_en_alquiler():
     try:

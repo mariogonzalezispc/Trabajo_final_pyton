@@ -68,7 +68,6 @@ def rellenar1(relleno):
     return
 
 def rellenar2(relleno):
-
     try:
         for i in range(relleno):
             if i < relleno:
@@ -124,13 +123,14 @@ def color_amarillo():
     return
 
 def menu_principal():
-    while True:                     # generamos un while para uso continuo
+    while True:                 # generamos un while para uso continuo
         limpia()                # limpia la pantalla de la consola
         menu_opciones()         # llamamos la funcion menu de opciones
         print()                 # salto de linea
         print()                 # salto de linea
         try:                    # inicio del try
             opcion = int(input("Ingrese opcion : "))# Input para que usuario cargue opcion
+            
             switch = {                              # Inicia el diccionario
                 0: prueba_conexion,                 # opcion 0
                 1: ingresa_propiedad,               # opcion 1
@@ -150,6 +150,8 @@ def menu_principal():
                 print()                             # salto de linea
                 print("Reintente !!!!")             # imprimo el reintento
                 time.sleep(3)                       # demora de 3 segundos para leer consola
+        
+        
         except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
                 color_rojo()                        # cambio color del print a rojo
                 print("El sistema solo acepta numeros ", e) 
@@ -159,6 +161,10 @@ def menu_principal():
                 print("Reintente !!!!")             # imprimo texto
                 color_blanco()                      # cambio el color del print a blanco
                 time.sleep(3)   
+
+
+
+
 
 limpia()
 cabecera_presentacion()

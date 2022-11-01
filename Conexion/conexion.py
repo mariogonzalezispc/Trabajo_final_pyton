@@ -30,6 +30,21 @@ class BD_inmobiliaria():
 
 
 
+    def listado_propiedades(self):
+        envio = self.inmobiliaria.cursor()
+        sql = "SELECT Propiedad.Direccion,\
+            Propiedad.Habitaciones,\
+            Propiedad.`Baños`,\
+            Propiedad.Patio,\
+            Propiedad.Cochera,\
+            Propietario.Id_Propietario,\
+            Propietario.Nombre,\
+            Propietario.Contacto\
+            FROM Propiedad, Propietario\
+            WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
+        envio.execute(sql)
+        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+        return retorno
 
 
 
