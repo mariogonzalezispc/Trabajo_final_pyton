@@ -24,3 +24,4 @@ SELECT Propiedad.Direccion,
  Propietario.Contacto
 FROM Propiedad, Propietario
 WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario
+
