@@ -1,3 +1,16 @@
+# Atencion para usar este programa debemos incluir ciertas librerias
+
+#  Para la conexion de la base de datos instalar el conector 
+#  python -m pip install PyMySQL
+#  o
+#  pip install PyMySQL 
+
+#  Colorama para dar color al texto en la consola
+#  metodo de instlacion 
+#  python -m pip install colorama  
+#  o
+#  pip install colorama
+
 import pymysql                  # importo el conector de python con Mysql
 import time                     # importo la libreria rutinas de delay
 from datetime import datetime   # importo la libreria de fecha y hora
@@ -17,7 +30,6 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     color_blanco()
     print("| Alumnos  : Barea, Silvana       recursosssbb                    |")
     print("|            Martinez, Mauro      Mauro-Martinez                  |")
-    print("|            Zarate, Tadeo        TadeoZarate                     |")
     print("|            Gonzalez, Mario      mariogonzalezispc               |")
     print("-------------------------------------------------------------------")
     print()
@@ -79,7 +91,6 @@ def prueba_conexion():          # prueba en cualquier momento la conexion a la b
         print()
         time.sleep(2)
         color_blanco()          # cambio el color del print a blanco
-        time.sleep(2)
         inmobiliaria.close()
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
@@ -148,15 +159,15 @@ def listado_propiedades():
         tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
                                     # ordeno la forma de ver fecha y hora
         dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
-        rellenar3()                 # traza la linea de la consola
+        rellenar3()                 # relleno los espacios para poner el tabulador
         print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
               dato_dia+" |")        # declaro fecha y hora de apertura
-        rellenar3()                 # traza la linea de la consola 
+        rellenar3()                 # relleno los espacios para poner el tabulador
         print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Propietario     |  Contacto  |" )
-        rellenar3() 
+        rellenar3()                 # relleno los espacios para poner el tabulador
         for x in retorno:           # inicio el recorrido del array de regreso de la BD
-            init()
-            relleno = 22-len(x[0])
+            init()  
+            relleno = 22-len(x[0])              # calculo cantidad de relleno  
             print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
             print(Fore.MAGENTA + x[0],end="")   # Propiedad 
             rellenar1(relleno)                  # relleno los espacios para poner el tabulador
@@ -167,36 +178,35 @@ def listado_propiedades():
 
             relleno = 2-len(x[2])               # calculo cantidad de relleno
             print(Fore.GREEN +"  "+ x[2],end="")# Baños
-            rellenar1(relleno)                  # calculo cantidad de relleno
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
             relleno = 3-len(x[3])               # calculo cantidad de relleno
-            if x[3]=='1':
-                Patio=" Si"
+            if x[3]=='1':                       # si es 1 en el arreglo SI tiene patio
+                Patio=" Si"                     # cargo SI a la variable que imprimo en consola
                 print(Fore.GREEN + Patio,end="") 
-            else:
-                Patio=" No"
+            else:                               # si es 0 en el arreglo NO tiene patio
+                Patio=" No"                     # cargo NO a la variable que imprimo en consola   
                 print(Fore.RED + Patio,end="")  # Patio
-            rellenar1(relleno)                  # calculo cantidad de relleno
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
             relleno = 3-len(x[4])               # calculo cantidad de relleno
-            if x[4]=='1':
-                Garage="  Si"
+            if x[4]=='1':                       # si es 1 en el arreglo SI tiene Garage
+                Garage="  Si"                   # cargo SI a la variable que imprimo en consola
                 print(Fore.GREEN + Garage,end="")
-            else:
-                Garage="  No"
-                print(Fore.RED + Garage,end="")   # Garage
-            rellenar1(relleno)                  # calculo cantidad de relleno
+            else:                               # si es 0 en el arreglo NO tiene Garage
+                Garage="  No"                   # cargo NO a la variable que imprimo en consola
+                print(Fore.RED + Garage,end="") # Garage
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
  
-
             relleno = 18-len(x[6])              # calculo cantidad de relleno
             print(Fore.GREEN + x[6],end="")     # Telefono del dueño
-            rellenar1(relleno)                  # calculo cantidad de relleno
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
 
             relleno = 10-len(x[7])              # calculo cantidad de relleno
             print(Fore.GREEN + x[7],end="")     # Telefono del dueño
-            rellenar2(relleno)                  # calculo cantidad de relleno
+            rellenar2(relleno)                  # relleno los espacios para poner el tabulador
 
-        rellenar3()                             # traza la linea de la consola          
+        rellenar3()                             # relleno los espacios para poner el tabulador          
     
         opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
