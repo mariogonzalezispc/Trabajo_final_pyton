@@ -37,7 +37,6 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
     print()
     time.sleep(4)
 
-
 def menu_opciones():            # inicio menu de opciones en grafico para consola
     tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
     # ordeno la forma de ver fecha y hora
@@ -61,11 +60,9 @@ def menu_opciones():            # inicio menu de opciones en grafico para consol
     print("| Opcion 9 : Sale del programa                                    |")
     print("-------------------------------------------------------------------")
 
-
 def limpia():                   # limpia la pantalla de la consola
     from os import system
     system("cls")
-
 
 def conecta():                  # genera la conexion a la base de datos remota
     global inmobiliaria
@@ -74,13 +71,11 @@ def conecta():                  # genera la conexion a la base de datos remota
                                    password='ispc_inmobiliaria',
                                    db='inmobiliaria')
 
-
 def conecta_mal():              # avisa de la mala conexion
     print("NO tiene conexion a la base de datos !!!!!!!")
     print()
     time.sleep(6)
     return
-
 
 def prueba_conexion():          # prueba en cualquier momento la conexion a la base de datos
     try:
@@ -97,7 +92,6 @@ def prueba_conexion():          # prueba en cualquier momento la conexion a la b
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
-
 
 def ingresa_propiedad():        # permite cargar una propiedad
     try:
@@ -116,7 +110,6 @@ def ingresa_propiedad():        # permite cargar una propiedad
         conecta_mal()
     return
 
-
 def modifica_propiedad():
     try:
         conecta()
@@ -126,7 +119,6 @@ def modifica_propiedad():
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
-
 
 def borra_propiedad():
     try:
@@ -221,10 +213,6 @@ def listado_propiedades():
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
-
-
-
-
 
 def listado_en_venta():
     try:
@@ -392,7 +380,6 @@ def listado_en_alquiler():
         conecta_mal()
     return
 
-
 def listado_vendidas():
     try:
         conecta()
@@ -475,7 +462,6 @@ def listado_vendidas():
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
-
 
 def listado_alquiladas():
     try:
@@ -560,13 +546,10 @@ def listado_alquiladas():
         conecta_mal()
     return
 
-
-
 def sale():                     # inicia funcion de salir del programa
     limpia()                    # limpia la pantalla
     quit()                      # sale del sistema
     return
-
 
 def rellenar1(relleno):
     try:
@@ -578,7 +561,6 @@ def rellenar1(relleno):
     except  (ValueError) as e:
             print("Ocurrió un error crear la consola ", e)
     return
-
 
 def rellenar2(relleno):
 
@@ -592,7 +574,6 @@ def rellenar2(relleno):
             print("Ocurrió un error crear la consola ", e)
     return
 
-
 def rellenar3():
     try:
         init()
@@ -605,7 +586,6 @@ def rellenar3():
             print("Ocurrió un error crear la consola ", e)
     return
 
-
 def color_rojo():
     try:
         init()
@@ -613,7 +593,6 @@ def color_rojo():
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color ROJO ", e)
     return
-
 
 def color_verde():
     try:
@@ -623,7 +602,6 @@ def color_verde():
             print("Ocurrió un error cargar el color VERDE ", e)
     return
 
-
 def color_blanco():
     try:
         init()
@@ -632,7 +610,6 @@ def color_blanco():
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
 
-
 def color_amarillo():
     try:
         init()
@@ -640,7 +617,6 @@ def color_amarillo():
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
-
 
 limpia()
 cabecera_presentacion()
