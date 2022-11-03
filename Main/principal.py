@@ -135,33 +135,6 @@ def opcion_4():
             funciones.color_blanco()                      # cambio el color del print a blanco
             time.sleep(3)                       # demora de 3 segundos
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 funciones.limpia()
 cabecera_presentacion()
 

@@ -30,8 +30,6 @@ class DAO():
         #         print("Conexion base de datos cerrada !!")
         #         print()
 
-
-
     def prueba_conexion(self):
         if self.inmobiliaria.connect():    
             try:
@@ -41,12 +39,6 @@ class DAO():
                 print("No de pudo conectar a la base de datos !!", e)
                 print("Ocurrió un error al conectar")
                 return 
-
-
-
-
-
-
 
     def listado_propiedades(self):
         if self.inmobiliaria.connect():
@@ -70,7 +62,6 @@ class DAO():
                 print("No de pudo conectar a la base de datos !!", e)
                 print("Ocurrió un error al conectar")
                 return
-
 
     def listado_alquiladas(self):
         if self.inmobiliaria.connect():
@@ -171,11 +162,3 @@ class DAO():
                 print("No de pudo conectar a la base de datos !!", e)
                 print("Ocurrió un error al conectar")
                 return
-                
-
-
-
-
-
-
-        
