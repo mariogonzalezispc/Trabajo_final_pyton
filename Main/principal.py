@@ -168,13 +168,13 @@ while True:                     # generamos un while para uso continuo
                     funciones.color_blanco()                      # cambio el color del print a blanco
                     time.sleep(3)                       # demora de 3 segundos
             elif opcion == 5:
-                print('PROPIEDADES EN ALQUILER')
+                print()
             elif opcion == 6:
-                print('PROPIEDADES VENDIDAS')
+                print()
             elif opcion == 7:
-                print('PROPIEDADES ALQUILADAS')
+                print()
             elif opcion == 8:
-                print('GRACIAS POR SU CONSULTA')
+                print()
             elif opcion == 9:
                 print('GRACIAS POR SU CONSULTA')
             else:
