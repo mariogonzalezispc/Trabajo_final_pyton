@@ -29,19 +29,21 @@ CREATE TABLE `OperatoriaComercial` (
 
 
 
+/*----------------------------------------------------------------
+Creo Tabla Propietario
+------------------------------------------------------------------
+*/
+CREATE TABLE `Propietario` (
+	`Id_Propietario` INT(11) NOT NULL AUTO_INCREMENT,
+	`Nombre` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`Direccion` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`Contacto` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`Id_Propietario`));
 
-
-
-
-
-
-
-
-
-
-
-
-
+/*----------------------------------------------------------------
+Creo Tabla Propiedad
+------------------------------------------------------------------
+*/
 CREATE TABLE `Propiedad` (
 	`Id_Propiedad` INT NOT NULL AUTO_INCREMENT,
 	`Id_Tipo` INT NULL DEFAULT '0',
@@ -62,15 +64,10 @@ CREATE TABLE `Propiedad` (
 COLLATE='utf8mb4_general_ci'
 ;
 
-
-
-
-
 /*----------------------------------------------------------------
-Listado general de las propiedades
+Inserto un registro en la base de datos en la tabla propiedad
 ------------------------------------------------------------------
 */
-
 INSERT INTO 
 `inmobiliaria`.`Propiedad` 
 (`Id_Propiedad`,
@@ -84,26 +81,6 @@ INSERT INTO
  `Patio`,
  `Cochera`) 
  VALUES (NULL, '1', '3', '1', '11', 'Mauricio Yaradola 2345', '3', '1', '1', '1');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
