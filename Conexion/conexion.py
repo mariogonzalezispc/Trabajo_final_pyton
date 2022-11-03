@@ -1,11 +1,11 @@
-import mysql.connector
-from mysql.connector import Error
+import pymysql                  # importo el conector de python con Mysql
 
 
-class BD_inmobiliaria():
+
+class DAO():
     def __init__(self):
         try:
-            self.inmobiliaria = mysql.connector.connect(host='mgalarmasserver1.ddns.net',  # direccion de la base de datos
+            self.inmobiliaria = pymysql.connect(host='mgalarmasserver1.ddns.net',  # direccion de la base de datos
                                          database='inmobiliaria',           # nombre de la base de datos
                                          user='ispc_inmobiliaria',          # usuario de la bd
                                          password='ispc_inmobiliaria')      # password de la bd
@@ -19,7 +19,7 @@ class BD_inmobiliaria():
                 record = cursor.fetchone()                                  # grabo en record el retorno de cursor
                 print("Conectado a la base de datos: ", record)             # imprimo mensaje + nombre de la BD conectada
                 print()                                                     # salto de linea
-        except Error as e:                                                  # exception error
+        except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:                                                 # exception error
             print("No de pudo conectar a la base de datos !!", e)
         finally:
             if self.inmobiliaria.is_connected():
@@ -31,21 +31,89 @@ class BD_inmobiliaria():
 
 
     def listado_propiedades(self):
-        envio = self.inmobiliaria.cursor()
-        sql = "SELECT Propiedad.Direccion,\
-            Propiedad.Habitaciones,\
-            Propiedad.`Baños`,\
-            Propiedad.Patio,\
-            Propiedad.Cochera,\
-            Propietario.Id_Propietario,\
-            Propietario.Nombre,\
-            Propietario.Contacto\
-            FROM Propiedad, Propietario\
-            WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
-        envio.execute(sql)
-        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
-        return retorno
+        if self.inmobiliaria.is_connected():
+            try:
+                cursor = self.inmobiliaria.cursor()
+                cursor.execute("select * from propiedades")
+                envio = self.inmobiliaria.cursor()
+                sql = "SELECT Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Propietario.Id_Propietario,\
+                Propietario.Nombre,\
+                Propietario.Contacto\
+                FROM Propiedad, Propietario\
+                WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
+                envio.execute(sql)
+                Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                return Resultado
+            except (pymysql.err.ProgrammingError, pymysql.err.InternalError) as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+                
+    def listado_alquiladas(self):
+        if self.inmobiliaria.is_connected():
+            try:
+                cursor = self.inmobiliaria.cursor()
+                cursor.execute("select * from propiedades")
+                envio = self.inmobiliaria.cursor()
+                sql = "SELECT "
+                envio.execute(sql)
+                Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                return Resultado
+            except (pymysql.err.ProgrammingError, pymysql.err.InternalError) as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+                
+    def listado_vendidas(self):
+        if self.inmobiliaria.is_connected():
+            try:
+                cursor = self.inmobiliaria.cursor()
+                cursor.execute("select * from propiedades")
+                envio = self.inmobiliaria.cursor()
+                sql = "SELECT "
+                envio.execute(sql)
+                Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                return Resultado
+            except (pymysql.err.ProgrammingError, pymysql.err.InternalError) as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
 
+    def listado_en_alquiler(self):
+        if self.inmobiliaria.is_connected():
+            try:
+                cursor = self.inmobiliaria.cursor()
+                cursor.execute("select * from propiedades")
+                envio = self.inmobiliaria.cursor()
+                sql = "SELECT "
+                envio.execute(sql)
+                Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                return Resultado
+            except (pymysql.err.ProgrammingError, pymysql.err.InternalError) as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+                       
+    def listado_en_venta(self):
+        if self.inmobiliaria.is_connected():
+            try:
+                cursor = self.inmobiliaria.cursor()
+                cursor.execute("select * from propiedades")
+                envio = self.inmobiliaria.cursor()
+                sql = "SELECT "
+                envio.execute(sql)
+                Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                return Resultado
+            except (pymysql.err.ProgrammingError, pymysql.err.InternalError) as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+                
 
 
 
