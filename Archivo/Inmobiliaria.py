@@ -230,16 +230,21 @@ def listado_en_venta():
     try:
         conecta()
         envio = inmobiliaria.cursor()
-        sql = "SELECT Propiedad.Direccion,\
-            Propiedad.Habitaciones,\
-            Propiedad.`Baños`,\
-            Propiedad.Patio,\
-            Propiedad.Cochera,\
-            Propietario.Id_Propietario,\
-            Propietario.Nombre,\
-            Propietario.Contacto\
-            FROM Propiedad, Propietario\
-            WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
+        sql =  "SELECT  \
+                Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto\
+                FROM Propiedad, Estado, Propietario, Tipo \
+                WHERE Propiedad.Id_Estado = 3 \
+                AND Propiedad.Id_Estado = Estado.Id_Estado \
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario \
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
         envio.execute(sql)
         retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
         limpia()                    # limpia la pantalla
@@ -247,10 +252,10 @@ def listado_en_venta():
                                     # ordeno la forma de ver fecha y hora
         dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
         rellenar3()                 # relleno los espacios para poner el tabulador
-        print("| Sistema de gestion Inmobiliaria     Listado general de propiedades  " +
+        print("| Sistema de gestion Inmobiliaria          Listado general de propiedades       " +
               dato_dia+" |")        # declaro fecha y hora de apertura
         rellenar3()                 # relleno los espacios para poner el tabulador
-        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Propietario     |  Contacto  |" )
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Estado   |   Propietario   |  Contacto  |" )
         rellenar3()                 # relleno los espacios para poner el tabulador
         for x in retorno:           # inicio el recorrido del array de regreso de la BD
             init()  
@@ -285,20 +290,20 @@ def listado_en_venta():
                 print(Fore.RED + Garage,end="") # Garage
             rellenar1(relleno)                  # relleno los espacios para poner el tabulador
  
-            relleno = 18-len(x[6])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[6],end="")     # Telefono del dueño
+            relleno = 11-len(x[6])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
             rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
 
-            relleno = 10-len(x[7])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[7],end="")     # Telefono del dueño
-            rellenar2(relleno)                  # relleno los espacios para poner el tabulador
+            relleno = 15-len(x[7])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[7],end="")     # Propietario
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
+            relleno = 10-len(x[8])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[8],end="")     # Contacto
+            rellenar2(relleno)                  # relleno los espacios para poner el tabulador
         rellenar3()                             # relleno los espacios para poner el tabulador          
     
         opcion = input("Presione ENTER para continuar : ")
-
-
-
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -307,8 +312,81 @@ def listado_en_venta():
 def listado_en_alquiler():
     try:
         conecta()
-        print("Listado de propiedades en alquiler")
-        print()
+        envio = inmobiliaria.cursor()
+        sql =  "SELECT  \
+                Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto\
+                FROM Propiedad, Estado, Propietario, Tipo \
+                WHERE Propiedad.Id_Estado = 1 \
+                AND Propiedad.Id_Estado = Estado.Id_Estado \
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario \
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
+        envio.execute(sql)
+        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+        limpia()                    # limpia la pantalla
+        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
+                                    # ordeno la forma de ver fecha y hora
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        print("| Sistema de gestion Inmobiliaria          Listado general de propiedades       " +
+              dato_dia+" |")        # declaro fecha y hora de apertura
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Estado   |   Propietario   |  Contacto  |" )
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        for x in retorno:           # inicio el recorrido del array de regreso de la BD
+            init()  
+            relleno = 22-len(x[0])              # calculo cantidad de relleno  
+            print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
+            print(Fore.MAGENTA + x[0],end="")   # Propiedad 
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 2-len(x[1])               # calculo cantidad de relleno
+            print(Fore.YELLOW + " "+x[1],end="")# Habitaciones
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 2-len(x[2])               # calculo cantidad de relleno
+            print(Fore.GREEN +"  "+ x[2],end="")# Baños
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 3-len(x[3])               # calculo cantidad de relleno
+            if x[3]=='1':                       # si es 1 en el arreglo SI tiene patio
+                Patio=" Si"                     # cargo SI a la variable que imprimo en consola
+                print(Fore.GREEN + Patio,end="") 
+            else:                               # si es 0 en el arreglo NO tiene patio
+                Patio=" No"                     # cargo NO a la variable que imprimo en consola   
+                print(Fore.RED + Patio,end="")  # Patio
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 3-len(x[4])               # calculo cantidad de relleno
+            if x[4]=='1':                       # si es 1 en el arreglo SI tiene Garage
+                Garage="  Si"                   # cargo SI a la variable que imprimo en consola
+                print(Fore.GREEN + Garage,end="")
+            else:                               # si es 0 en el arreglo NO tiene Garage
+                Garage="  No"                   # cargo NO a la variable que imprimo en consola
+                print(Fore.RED + Garage,end="") # Garage
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+ 
+            relleno = 11-len(x[6])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
+
+            relleno = 15-len(x[7])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[7],end="")     # Propietario
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 10-len(x[8])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[8],end="")     # Contacto
+            rellenar2(relleno)                  # relleno los espacios para poner el tabulador
+        rellenar3()                             # relleno los espacios para poner el tabulador          
+    
+        opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -318,8 +396,81 @@ def listado_en_alquiler():
 def listado_vendidas():
     try:
         conecta()
-        print("Listado de propiedades VENDIDAS")
-        print()
+        envio = inmobiliaria.cursor()
+        sql =  "SELECT  \
+                Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto\
+                FROM Propiedad, Estado, Propietario, Tipo \
+                WHERE Propiedad.Id_Estado = 4 \
+                AND Propiedad.Id_Estado = Estado.Id_Estado \
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario \
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
+        envio.execute(sql)
+        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+        limpia()                    # limpia la pantalla
+        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
+                                    # ordeno la forma de ver fecha y hora
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        print("| Sistema de gestion Inmobiliaria          Listado general de propiedades       " +
+              dato_dia+" |")        # declaro fecha y hora de apertura
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Estado   |   Propietario   |  Contacto  |" )
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        for x in retorno:           # inicio el recorrido del array de regreso de la BD
+            init()  
+            relleno = 22-len(x[0])              # calculo cantidad de relleno  
+            print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
+            print(Fore.MAGENTA + x[0],end="")   # Propiedad 
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 2-len(x[1])               # calculo cantidad de relleno
+            print(Fore.YELLOW + " "+x[1],end="")# Habitaciones
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 2-len(x[2])               # calculo cantidad de relleno
+            print(Fore.GREEN +"  "+ x[2],end="")# Baños
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 3-len(x[3])               # calculo cantidad de relleno
+            if x[3]=='1':                       # si es 1 en el arreglo SI tiene patio
+                Patio=" Si"                     # cargo SI a la variable que imprimo en consola
+                print(Fore.GREEN + Patio,end="") 
+            else:                               # si es 0 en el arreglo NO tiene patio
+                Patio=" No"                     # cargo NO a la variable que imprimo en consola   
+                print(Fore.RED + Patio,end="")  # Patio
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 3-len(x[4])               # calculo cantidad de relleno
+            if x[4]=='1':                       # si es 1 en el arreglo SI tiene Garage
+                Garage="  Si"                   # cargo SI a la variable que imprimo en consola
+                print(Fore.GREEN + Garage,end="")
+            else:                               # si es 0 en el arreglo NO tiene Garage
+                Garage="  No"                   # cargo NO a la variable que imprimo en consola
+                print(Fore.RED + Garage,end="") # Garage
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+ 
+            relleno = 11-len(x[6])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
+
+            relleno = 15-len(x[7])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[7],end="")     # Propietario
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 10-len(x[8])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[8],end="")     # Contacto
+            rellenar2(relleno)                  # relleno los espacios para poner el tabulador
+        rellenar3()                             # relleno los espacios para poner el tabulador          
+    
+        opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
@@ -329,12 +480,86 @@ def listado_vendidas():
 def listado_alquiladas():
     try:
         conecta()
-        print("Listado de propiedades ALQUILADAS")
-        print()
+        envio = inmobiliaria.cursor()
+        sql =  "SELECT  \
+                Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto\
+                FROM Propiedad, Estado, Propietario, Tipo \
+                WHERE Propiedad.Id_Estado = 2 \
+                AND Propiedad.Id_Estado = Estado.Id_Estado \
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario \
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
+        envio.execute(sql)
+        retorno = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+        limpia()                    # limpia la pantalla
+        tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
+                                    # ordeno la forma de ver fecha y hora
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        print("| Sistema de gestion Inmobiliaria          Listado general de propiedades       " +
+              dato_dia+" |")        # declaro fecha y hora de apertura
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Estado   |   Propietario   |  Contacto  |" )
+        rellenar3()                 # relleno los espacios para poner el tabulador
+        for x in retorno:           # inicio el recorrido del array de regreso de la BD
+            init()  
+            relleno = 22-len(x[0])              # calculo cantidad de relleno  
+            print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
+            print(Fore.MAGENTA + x[0],end="")   # Propiedad 
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 2-len(x[1])               # calculo cantidad de relleno
+            print(Fore.YELLOW + " "+x[1],end="")# Habitaciones
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 2-len(x[2])               # calculo cantidad de relleno
+            print(Fore.GREEN +"  "+ x[2],end="")# Baños
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 3-len(x[3])               # calculo cantidad de relleno
+            if x[3]=='1':                       # si es 1 en el arreglo SI tiene patio
+                Patio=" Si"                     # cargo SI a la variable que imprimo en consola
+                print(Fore.GREEN + Patio,end="") 
+            else:                               # si es 0 en el arreglo NO tiene patio
+                Patio=" No"                     # cargo NO a la variable que imprimo en consola   
+                print(Fore.RED + Patio,end="")  # Patio
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 3-len(x[4])               # calculo cantidad de relleno
+            if x[4]=='1':                       # si es 1 en el arreglo SI tiene Garage
+                Garage="  Si"                   # cargo SI a la variable que imprimo en consola
+                print(Fore.GREEN + Garage,end="")
+            else:                               # si es 0 en el arreglo NO tiene Garage
+                Garage="  No"                   # cargo NO a la variable que imprimo en consola
+                print(Fore.RED + Garage,end="") # Garage
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+ 
+            relleno = 11-len(x[6])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
+
+            relleno = 15-len(x[7])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[7],end="")     # Propietario
+            rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+            relleno = 10-len(x[8])              # calculo cantidad de relleno
+            print(Fore.GREEN + x[8],end="")     # Contacto
+            rellenar2(relleno)                  # relleno los espacios para poner el tabulador
+        rellenar3()                             # relleno los espacios para poner el tabulador          
+    
+        opcion = input("Presione ENTER para continuar : ")
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         print("Ocurrió un error al conectar: ", e)
         conecta_mal()
     return
+
 
 
 def sale():                     # inicia funcion de salir del programa
