@@ -1,14 +1,68 @@
+/*----------------------------------------------------------------
+Creo Tabla Tipo
+------------------------------------------------------------------
+*/
+CREATE TABLE `Tipo` (
+	`Id_Tipo` INT(11) NOT NULL AUTO_INCREMENT,
+	`Nombre_Tipo` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`Id_Tipo`));
+
+
+/*----------------------------------------------------------------
+Creo Tabla Estado
+------------------------------------------------------------------
+*/
+CREATE TABLE `Estado` (
+	`Id_Estado` INT(11) NOT NULL AUTO_INCREMENT,
+	`Nombre_Estado` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`Id_Estado`));
+
+
+/*----------------------------------------------------------------
+Creo Tabla Operatoria_Comercial
+------------------------------------------------------------------
+*/
+CREATE TABLE `OperatoriaComercial` (
+	`Id_Operatoria_Comercial` INT(11) NOT NULL AUTO_INCREMENT,
+	`Nombre_Operatoria_Comercial` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`Id_Operatoria_Comercial`));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 CREATE TABLE `Propiedad` (
-	`Id_Propiedad` INT NULL,
-	`Id_Tipo` INT NULL,
-	`Id_Estado` INT NULL,
-	`Id_Operacion_Comercial` INT NULL,
-	`Id_Propietario` INT NULL,
-	`Nombre` INT NULL,
-	`Direccion` INT NULL,
-	`Contacto` INT NULL
+	`Id_Propiedad` INT NOT NULL AUTO_INCREMENT,
+	`Id_Tipo` INT NULL DEFAULT '0',
+	`Id_Estado` INT NULL DEFAULT '0',
+	`Id_Operacion_Comercial` INT NULL DEFAULT '0',
+	`Id_Propietario` INT NULL DEFAULT '0',
+	`Direccion` VARCHAR(50) NULL DEFAULT NULL,
+	`Habitacion` VARCHAR(50) NULL DEFAULT NULL,
+	`Baños` VARCHAR(50) NULL DEFAULT NULL,
+	`Patio` VARCHAR(50) NULL DEFAULT NULL,
+	`Cochera` VARCHAR(50) NULL DEFAULT NULL,
+	PRIMARY KEY (`Id_Propiedad`),
+	CONSTRAINT `FK__Propietario` FOREIGN KEY (`Id_Propietario`) REFERENCES `Propietario` (`Id_Propietario`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT `FK__Tipo` FOREIGN KEY (`Id_Tipo`) REFERENCES `Tipo` (`Id_Tipo`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT `FK__Estado` FOREIGN KEY (`Id_Estado`) REFERENCES `Estado` (`Id_Estado`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT `FK__OperatoriaComercial` FOREIGN KEY (`Id_Operacion_Comercial`) REFERENCES `OperatoriaComercial` (`Id_Operatoria_Comercial`) ON UPDATE NO ACTION ON DELETE NO ACTION
 )
+COLLATE='utf8mb4_general_ci'
+;
+
+
 
 
 
