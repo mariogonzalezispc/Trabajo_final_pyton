@@ -33,8 +33,6 @@ class DAO():
     def listado_propiedades(self):
         if self.inmobiliaria.is_connected():
             try:
-                cursor = self.inmobiliaria.cursor()
-                cursor.execute("select * from propiedades")
                 envio = self.inmobiliaria.cursor()
                 sql = "SELECT Propiedad.Direccion,\
                 Propiedad.Habitaciones,\
@@ -57,10 +55,20 @@ class DAO():
     def listado_alquiladas(self):
         if self.inmobiliaria.is_connected():
             try:
-                cursor = self.inmobiliaria.cursor()
-                cursor.execute("select * from propiedades")
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT "
+                sql = "SELECT Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto,\
+                Tipo.Nombre_Tipo\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                AND Propiedad.Id_Estado = Estado.Id_Estado\
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
                 return Resultado
@@ -72,10 +80,20 @@ class DAO():
     def listado_vendidas(self):
         if self.inmobiliaria.is_connected():
             try:
-                cursor = self.inmobiliaria.cursor()
-                cursor.execute("select * from propiedades")
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT "
+                sql = "SELECT Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto,\
+                Tipo.Nombre_Tipo\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                AND Propiedad.Id_Estado = Estado.Id_Estado\
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
                 return Resultado
@@ -87,10 +105,20 @@ class DAO():
     def listado_en_alquiler(self):
         if self.inmobiliaria.is_connected():
             try:
-                cursor = self.inmobiliaria.cursor()
-                cursor.execute("select * from propiedades")
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT "
+                sql = "SELECT Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto,\
+                Tipo.Nombre_Tipo\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                AND Propiedad.Id_Estado = Estado.Id_Estado\
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
                 return Resultado
@@ -102,10 +130,20 @@ class DAO():
     def listado_en_venta(self):
         if self.inmobiliaria.is_connected():
             try:
-                cursor = self.inmobiliaria.cursor()
-                cursor.execute("select * from propiedades")
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT "
+                sql = "SELECT Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto,\
+                Tipo.Nombre_Tipo\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                AND Propiedad.Id_Estado = Estado.Id_Estado\
+                AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
+                AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
                 return Resultado
