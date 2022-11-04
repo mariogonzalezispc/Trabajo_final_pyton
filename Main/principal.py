@@ -1,4 +1,4 @@
-# Atencion para usar este programa debemos incluir ciertas librerias
+#  Atencion para usar este programa debemos incluir ciertas librerias
 
 #  Para la conexion de la base de datos instalar el conector 
 #  metodo de instalacion
@@ -11,6 +11,14 @@
 #  python -m pip install colorama  
 #  o
 #  pip install colorama
+# 
+#  Base de datos
+#  la base de datos de este proyecto es remota 
+#  la direccion :   mgalarmasserver1.ddns.net
+#  puerto : 3306
+#  Base de datos nombre : inmobiliaria                                    
+#  Usuario : ispc_inmobiliaria     
+#  Contraseña : ispc_inmobiliaria 
 
 from conexion import DAO
 import funciones
@@ -36,7 +44,6 @@ def cabecera_presentacion():    # inicio funcion con parte grafica para consola
         print()
         print()
         time.sleep(4)
-
 
 def menu_opciones():            # inicio menu de opciones en grafico para consola
     tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
@@ -69,6 +76,7 @@ def opcion_4():
         tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
                                      # ordeno la forma de ver fecha y hora
         dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        funciones.limpia()
         funciones.rellenar3()                 # relleno los espacios para poner el tabulador
         print("| Sistema de gestion Inmobiliaria          Listado general de propiedades       " +
         dato_dia+" |")        # declaro fecha y hora de apertura
@@ -76,56 +84,50 @@ def opcion_4():
         print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Estado   |   Propietario   |  Contacto  |" )
         funciones.rellenar3()                 # relleno los espacios para poner el tabulador
         for x in mostrar:           # inicio el recorrido del array de regreso de la BD
-            init()  
-            relleno = 22-len(x[0])              # calculo cantidad de relleno  
-            print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
-            print(Fore.MAGENTA + x[0],end="")   # Propiedad 
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
-            relleno = 2-len(x[1])               # calculo cantidad de relleno
-            print(Fore.YELLOW + " "+x[1],end="")# Habitaciones
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+                init()  
+                relleno = 22-len(x[0])              # calculo cantidad de relleno  
+                print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
+                print(Fore.MAGENTA + x[0],end="")   # Propiedad 
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+                relleno = 2-len(x[1])               # calculo cantidad de relleno
+                print(Fore.YELLOW + " "+x[1],end="")# Habitaciones
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
-            relleno = 2-len(x[2])               # calculo cantidad de relleno
-            print(Fore.GREEN +"  "+ x[2],end="")# Baños
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+                relleno = 2-len(x[2])               # calculo cantidad de relleno
+                print(Fore.GREEN +"  "+ x[2],end="")# Baños
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
-            relleno = 3-len(x[3])               # calculo cantidad de relleno
-            if x[3]=='1':                       # si es 1 en el arreglo SI tiene patio
-                Patio=" Si"                     # cargo SI a la variable que imprimo en consola
-                print(Fore.GREEN + Patio,end="") 
-            else:                               # si es 0 en el arreglo NO tiene patio
-                Patio=" No"                     # cargo NO a la variable que imprimo en consola   
-                print(Fore.RED + Patio,end="")  # Patio
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+                relleno = 3-len(x[3])               # calculo cantidad de relleno
+                if x[3]=='1':                       # si es 1 en el arreglo SI tiene patio
+                    Patio=" Si"                     # cargo SI a la variable que imprimo en consola
+                    print(Fore.GREEN + Patio,end="") 
+                else:                               # si es 0 en el arreglo NO tiene patio
+                    Patio=" No"                     # cargo NO a la variable que imprimo en consola   
+                    print(Fore.RED + Patio,end="")  # Patio
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
-            relleno = 3-len(x[4])               # calculo cantidad de relleno
-            if x[4]=='1':                       # si es 1 en el arreglo SI tiene Garage
-                Garage="  Si"                   # cargo SI a la variable que imprimo en consola
-                print(Fore.GREEN + Garage,end="")
-            else:                               # si es 0 en el arreglo NO tiene Garage
-                Garage="  No"                   # cargo NO a la variable que imprimo en consola
-                print(Fore.RED + Garage,end="") # Garage
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+                relleno = 3-len(x[4])               # calculo cantidad de relleno
+                if x[4]=='1':                       # si es 1 en el arreglo SI tiene Garage
+                    Garage="  Si"                   # cargo SI a la variable que imprimo en consola
+                    print(Fore.GREEN + Garage,end="")
+                else:                               # si es 0 en el arreglo NO tiene Garage
+                    Garage="  No"                   # cargo NO a la variable que imprimo en consola
+                    print(Fore.RED + Garage,end="") # Garage
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
  
-            relleno = 11-len(x[6])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
+                relleno = 11-len(x[6])              # calculo cantidad de relleno
+                print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
 
-            relleno = 15-len(x[7])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[7],end="")     # Propietario
-            funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+                relleno = 15-len(x[7])              # calculo cantidad de relleno
+                print(Fore.GREEN + x[7],end="")     # Propietario
+                funciones.rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
-            relleno = 10-len(x[8])              # calculo cantidad de relleno
-            print(Fore.GREEN + x[8],end="")     # Contacto
-            funciones.rellenar2(relleno)                  # relleno los espacios para poner el tabulador
-            funciones.rellenar3()                             # relleno los espacios para poner el tabulador          
- 
-            opcion = input("Presione ENTER para continuar : ")
-        else:
-                 print("NO es una opcion valida")    # ingreso si la opcion no esta en el diccionario
-                 print()                             # salto de linea
-                 print("Reintente !!!!")             # imprimo el reintento
-                 time.sleep(3)                       # demora de 3 segundos para leer consola
+                relleno = 10-len(x[8])              # calculo cantidad de relleno
+                print(Fore.GREEN + x[8],end="")     # Contacto
+                funciones.rellenar2(relleno)                  # relleno los espacios para poner el tabulador
+        funciones.rellenar3()                             # relleno los espacios para poner el tabulador          
+        opcion = input("Presione ENTER para continuar : ")
     except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
             funciones.color_rojo()                        # cambio color del print a rojo
             print("El sistema solo acepta numeros ", e) # imprimo texto mas error
@@ -140,14 +142,16 @@ cabecera_presentacion()
 
 
 while True:                     # generamos un while para uso continuo
-        funciones.limpia()                # limpia la pantalla de la consola
+        funciones.limpia()      # limpia la pantalla de la consola
         menu_opciones()         # llamamos la funcion menu de opciones
         print()                 # salto de linea
         print()                 # salto de linea
         try:                    # inicio del try
             opcion = int(input("Ingrese opcion : "))# Input para que usuario cargue opcion
             if opcion == 0:
-                print("Prueba de conexion")
+                dao=DAO()
+                traer=dao.prueba_conexion()
+                time.sleep(5)               
             elif opcion == 1:
                 print("Carga de propiedad para administrar")
             elif opcion == 2:
@@ -155,18 +159,23 @@ while True:                     # generamos un while para uso continuo
             elif opcion == 3:
                 print("Borra propiedad")
             elif opcion == 4:
-                dame =DAO()
-                try:
-                    traer = dame.listado_propiedades()
-                    print(traer)
-                except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
-                    funciones.color_rojo()                        # cambio color del print a rojo
-                    print("El sistema solo acepta numeros ", e) # imprimo texto mas error
-                    print()                             # salto de linea
-                    funciones.color_verde()                       # cambio el color del print a verde
-                    print("Reintente !!!!")             # imprimo texto
-                    funciones.color_blanco()                      # cambio el color del print a blanco
-                    time.sleep(3)                       # demora de 3 segundos
+                opcion_4()
+                # dao = DAO()
+                # try:
+                #     traer = dao.listado_propiedades()
+                #     print(traer)
+                #     print("por aca estoy")
+                #     time.sleep(15)
+                
+                
+                # except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
+                #     funciones.color_rojo()                        # cambio color del print a rojo
+                #     print("El sistema solo acepta numeros ", e) # imprimo texto mas error
+                #     print()                             # salto de linea
+                #     funciones.color_verde()                       # cambio el color del print a verde
+                #     print("Reintente !!!!")             # imprimo texto
+                #     funciones.color_blanco()                      # cambio el color del print a blanco
+                #     time.sleep(3)                       # demora de 3 segundos
             elif opcion == 5:
                 print()
             elif opcion == 6:
@@ -176,7 +185,8 @@ while True:                     # generamos un while para uso continuo
             elif opcion == 8:
                 print()
             elif opcion == 9:
-                print('GRACIAS POR SU CONSULTA')
+                funciones.limpia()
+                break
             else:
                 funciones.color_rojo()
                 print("NO es una opcion valida")            # ingreso si la opcion no esta en el diccionario
