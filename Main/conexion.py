@@ -47,16 +47,20 @@ class DAO():
     def listado_propiedades(self):
             try:
                 self.inmobiliaria.connect()
-                sql = "SELECT Propiedad.Direccion,\
+                sql =  "SELECT\
+                Propiedad.Direccion,\
                 Propiedad.Habitaciones,\
                 Propiedad.`Baños`,\
                 Propiedad.Patio,\
                 Propiedad.Cochera,\
-                Propietario.Id_Propietario,\
+                Tipo.Nombre_Tipo,\
+                Estado.Nombre_Estado,\
                 Propietario.Nombre,\
                 Propietario.Contacto\
-                FROM Propiedad, Propietario\
-                WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario"
+                FROM Propiedad, Propietario, Tipo, Estado\
+                WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario \
+                AND Propiedad.Id_Tipo = Tipo.Id_Tipo\
+                AND Propiedad.Id_Estado = Estado.Id_Estado"
                 envio = self.inmobiliaria.cursor()
                 envio.execute(sql)
                 Resul = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
