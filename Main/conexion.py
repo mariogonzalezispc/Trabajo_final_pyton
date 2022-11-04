@@ -1,7 +1,39 @@
-#import pymysql                  # importo el conector de python con Mysql
+#  Atencion para usar este programa debemos incluir ciertas librerias
+#--------------------------------------------------------------
+#  Para la conexion de la base de datos instalar el conector 
+#  metodo de instalacion
+#  python -m pip install PyMySQL
+#  o
+#  pip install PyMySQL 
+#--------------------------------------------------------------
+#  para la base de datos utilizamos este conector el anterior comentado 
+#  metodo de instalacion 
+#  pip install mysql-connector-python
+#--------------------------------------------------------------
+#  Colorama para dar color al texto en la consola
+#  metodo de instalacion 
+#  python -m pip install colorama  
+#  o
+#  pip install colorama
+# -------------------------------------------------------------
+#  Base de datos
+#  la base de datos de este proyecto es remota 
+#  la direccion :   mgalarmasserver1.ddns.net
+#  puerto : 3306
+#  Base de datos nombre : inmobiliaria                                    
+#  Usuario : ispc_inmobiliaria     
+#  Contraseña : ispc_inmobiliaria 
+
+
+#import pymysql                         # importo el conector de python con Mysql
 import mysql.connector                  # importo el conector de python con Mysql
 from mysql.connector import Error
 import funciones
+import time                     # importo la libreria rutinas de delay
+
+
+
+
 
 
 class DAO():
@@ -38,7 +70,9 @@ class DAO():
                     funciones.color_amarillo()
                     print()
                     print("Conexion Exitosa !!!")   
-                    funciones.color_blanco()      
+                    funciones.color_blanco()  
+                    print()    
+                    self.inmobiliaria.close()
             except Error as e:
                 print("No de pudo conectar a la base de datos !!", e)
                 print("Ocurrió un error al conectar")
@@ -64,6 +98,7 @@ class DAO():
                 envio = self.inmobiliaria.cursor()
                 envio.execute(sql)
                 Resul = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                self.inmobiliaria.close()
                 return Resul
             except Error as e:
                 print("No de pudo conectar a la base de datos !!", e)
@@ -71,24 +106,26 @@ class DAO():
                 return
 
     def listado_alquiladas(self):
-        if self.inmobiliaria.connect():
             try:
+                self.inmobiliaria.connect()
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT Propiedad.Direccion, \
-                Propiedad.Habitaciones, \
-                Propiedad.`Baños`, \
-                Propiedad.Patio, \
-                Propiedad.Cochera, \
-                Estado.Nombre_Estado, \
-                Propietario.Nombre, \
-                Propietario.Contacto, \
-                Tipo.Nombre_Tipo \
+                sql =  "SELECT\
+                Propiedad.Direccion,\
+                Propiedad.Habitaciones,\
+                Propiedad.`Baños`,\
+                Propiedad.Patio,\
+                Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
+                Estado.Nombre_Estado,\
+                Propietario.Nombre,\
+                Propietario.Contacto\
                 FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2 \
                 AND Propiedad.Id_Estado = Estado.Id_Estado \
                 AND Propiedad.Id_Propietario= Propietario.Id_Propietario \
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                self.inmobiliaria.close()
                 return Resultado
             except Error as e:
                 print("No de pudo conectar a la base de datos !!", e)
@@ -96,24 +133,26 @@ class DAO():
                 return
                 
     def listado_vendidas(self):
-        if self.inmobiliaria.connect():
             try:
+                self.inmobiliaria.connect()
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT Propiedad.Direccion,\
+                sql =  "SELECT\
+                Propiedad.Direccion,\
                 Propiedad.Habitaciones,\
                 Propiedad.`Baños`,\
                 Propiedad.Patio,\
                 Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
                 Propietario.Nombre,\
-                Propietario.Contacto,\
-                Tipo.Nombre_Tipo\
-                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                Propietario.Contacto\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 4\
                 AND Propiedad.Id_Estado = Estado.Id_Estado\
                 AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                self.inmobiliaria.close()
                 return Resultado
             except Error as e:
                 print("No de pudo conectar a la base de datos !!", e)
@@ -121,24 +160,26 @@ class DAO():
                 return
 
     def listado_en_alquiler(self):
-        if self.inmobiliaria.connect():
             try:
+                self.inmobiliaria.connect()
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT Propiedad.Direccion,\
+                sql =  "SELECT\
+                Propiedad.Direccion,\
                 Propiedad.Habitaciones,\
                 Propiedad.`Baños`,\
                 Propiedad.Patio,\
                 Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
                 Propietario.Nombre,\
-                Propietario.Contacto,\
-                Tipo.Nombre_Tipo\
-                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                Propietario.Contacto\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 1\
                 AND Propiedad.Id_Estado = Estado.Id_Estado\
                 AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                self.inmobiliaria.close()
                 return Resultado
             except Error as e:
                 print("No de pudo conectar a la base de datos !!", e)
@@ -146,24 +187,26 @@ class DAO():
                 return
                        
     def listado_en_venta(self):
-        if self.inmobiliaria.connect():
             try:
+                self.inmobiliaria.connect()
                 envio = self.inmobiliaria.cursor()
-                sql = "SELECT Propiedad.Direccion,\
+                sql =  "SELECT\
+                Propiedad.Direccion,\
                 Propiedad.Habitaciones,\
                 Propiedad.`Baños`,\
                 Propiedad.Patio,\
                 Propiedad.Cochera,\
+                Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
                 Propietario.Nombre,\
-                Propietario.Contacto,\
-                Tipo.Nombre_Tipo\
-                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2\
+                Propietario.Contacto\
+                FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 3 \
                 AND Propiedad.Id_Estado = Estado.Id_Estado\
                 AND Propiedad.Id_Propietario= Propietario.Id_Propietario\
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                self.inmobiliaria.close()
                 return Resultado
             except Error as e:
                 print("No de pudo conectar a la base de datos !!", e)
