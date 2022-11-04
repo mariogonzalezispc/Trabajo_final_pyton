@@ -100,13 +100,13 @@ def color_amarillo():
         init()
         print(Fore.YELLOW,end="")
     except  (ValueError) as e:
-            print("Ocurrió un error cargar el color BLANCO ", e)
+            print("Ocurrió un error cargar el color Amarillo ", e)
     return
 
 def muestra(mostrar):
     try:
         tiempo = datetime.now()     # genero objeto tiempo para fecha y hora
-        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")
+        dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")# formato de fecha y hora
         limpia()
         rellenar3()                 # relleno los espacios para poner el tabulador
         print("| Sistema de gestion Inmobiliaria              Listado general de propiedades                 " +
@@ -114,7 +114,7 @@ def muestra(mostrar):
         rellenar3()                 # relleno los espacios para poner el tabulador
         print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Tipo     |    Estado   |   Propietario   |  Contacto  |" )
         rellenar3()                 # relleno los espacios para poner el tabulador
-        for x in mostrar:           # inicio el recorrido del array de regreso de la BD
+        for x in mostrar:           # inicio el recorrido de la lista de regreso de la BD
                 init()  
                 relleno = 22-len(x[0])              # calculo cantidad de relleno  
                 print(Fore.WHITE +"| ", end="")     # tabulador de campo izquierdo
@@ -161,13 +161,11 @@ def muestra(mostrar):
                 relleno = 10-len(x[8])              # calculo cantidad de relleno
                 print(Fore.GREEN + x[8],end="")     # Contacto
                 rellenar2(relleno)                  # relleno los espacios para poner el tabulador
-        rellenar3()                             # relleno los espacios para poner el tabulador          
+        rellenar3()                                 # relleno los espacios para poner el tabulador          
         opcion = input("Presione ENTER para continuar : ")
-    except  (ValueError) as e:                  # tratamo el error y lo cargamos en variable "e"
-            color_rojo()                        # cambio color del print a rojo
-            print("El sistema solo acepta numeros ", e) # imprimo texto mas error
-            print()                             # salto de linea
-            color_verde()                       # cambio el color del print a verde
-            print("Reintente !!!!")             # imprimo texto
-            color_blanco()                      # cambio el color del print a blanco
+    except  (ValueError) as e:                      # tratamo el error y lo cargamos en variable "e"
+            color_rojo()                            # cambio color del print a rojo
+            print(e)                                # imprimo el error
+            print()                                 # salto de linea
+            color_blanco()                          # cambio el color del print a blanco
             time.sleep(3)
