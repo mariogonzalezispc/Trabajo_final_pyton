@@ -29,7 +29,7 @@
 import mysql.connector                  # importo el conector de python con Mysql
 from mysql.connector import Error
 import funciones
-import time                     # importo la libreria rutinas de delay
+# import time                     # importo la libreria rutinas de delay
 
 
 
@@ -59,7 +59,7 @@ class DAO():
 
         # finally:
         #     if self.inmobiliaria.connect():
-        #         cursor.close()
+        #         cursor.close() 12
         #         self.inmobiliaria.close()
         #         print("Conexion base de datos cerrada !!")
         #         print()
@@ -67,7 +67,10 @@ class DAO():
     def prueba_conexion(self):
             try:
                     self.inmobiliaria.connect()
+                    db_Info = self.inmobiliaria.get_server_info()               # informacion de servicio
                     funciones.color_amarillo()
+                    print()                                                     # salto de linea
+                    print("Version: ", db_Info) 
                     print()
                     print("Conexion Exitosa !!!")   
                     funciones.color_blanco()  
