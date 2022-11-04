@@ -1,5 +1,5 @@
 from colorama import Fore, init # importo libreria para darle color al texto
-from datetime import datetime   # importo la libreria de fecha y hora
+#from datetime import datetime   # importo la libreria de fecha y hora
 
 #----------------------------------------------------------------
 # rutinas de servicio
@@ -7,14 +7,6 @@ from datetime import datetime   # importo la libreria de fecha y hora
 def limpia():                   # limpia la pantalla de la consola
     from os import system
     system("cls")
-
-
-
-def sale():                     # inicia funcion de salir del programa
-    limpia()                    # limpia la pantalla
-    quit()                      # sale del sistema
-    return
-
 
 def rellenar1(relleno):
     try:
@@ -27,9 +19,7 @@ def rellenar1(relleno):
             print("Ocurrió un error crear la consola ", e)
     return
 
-
 def rellenar2(relleno):
-
     try:
         for i in range(relleno):
             if i < relleno:
@@ -39,7 +29,6 @@ def rellenar2(relleno):
     except  (ValueError) as e:
             print("Ocurrió un error crear la consola ", e)
     return
-
 
 def rellenar3():
     try:
@@ -53,7 +42,6 @@ def rellenar3():
             print("Ocurrió un error crear la consola ", e)
     return
 
-
 def color_rojo():
     try:
         init()
@@ -61,7 +49,6 @@ def color_rojo():
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color ROJO ", e)
     return
-
 
 def color_verde():
     try:
@@ -71,7 +58,6 @@ def color_verde():
             print("Ocurrió un error cargar el color VERDE ", e)
     return
 
-
 def color_blanco():
     try:
         init()
@@ -79,7 +65,6 @@ def color_blanco():
     except  (ValueError) as e:
             print("Ocurrió un error cargar el color BLANCO ", e)
     return
-
 
 def color_amarillo():
     try:
