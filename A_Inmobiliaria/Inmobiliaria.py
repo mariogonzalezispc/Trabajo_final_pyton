@@ -1,17 +1,17 @@
 #  Atencion para usar este programa debemos incluir ciertas librerias
-
+#--------------------------------------------------------------
 #  Para la conexion de la base de datos instalar el conector 
 #  metodo de instalacion
 #  python -m pip install PyMySQL
 #  o
 #  pip install PyMySQL 
-
+#--------------------------------------------------------------
 #  Colorama para dar color al texto en la consola
 #  metodo de instalacion 
 #  python -m pip install colorama  
 #  o
 #  pip install colorama
-# 
+# -------------------------------------------------------------
 #  Base de datos
 #  la base de datos de este proyecto es remota 
 #  la direccion :   mgalarmasserver1.ddns.net
@@ -19,7 +19,6 @@
 #  Base de datos nombre : inmobiliaria                                    
 #  Usuario : ispc_inmobiliaria     
 #  Contraseña : ispc_inmobiliaria 
-
 
 import pymysql                  # importo el conector de python con Mysql
 import time                     # importo la libreria rutinas de delay
