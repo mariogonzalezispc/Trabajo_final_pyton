@@ -110,26 +110,32 @@ class DAO():
 
 
 
-    def modifica_propiedad(self,propiedad):
-    #def carga_propiedad(self):
+    def modifica_propiedad(self,tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage):
         dao= DAO()
         try:
             dao.inmobiliaria.connect()
-            cursor1=dao.inmobiliaria.cursor() 
+            envio=dao.inmobiliaria.cursor() 
+            sql = "SELECT * FROM Propiedad WHERE Direccion = %s"
+            val = (direccion,)
+            envio.execute(sql,val) 
+            Resul = envio.fetchall()
+            for x in Resul: 
+                adress = x[0]
+
             sql= "UPDATE `inmobiliaria`.`Propiedad` \
                 SET \
-                `Id_Tipo`,\
-                `Id_Estado`,\
-                `Id_Operacion_Comercial`,\
-                `Id_Propietario`,\
-                `Direccion`,\
-                `Habitaciones`,\
-                `Baños`,\
-                `Patio`,\
-                `Cochera` \
-                 WHERE  `Id_Propiedad`= (%s);"
-            val = (propiedad)
-            cursor1.execute(sql,val) 
+                `Id_Tipo`=%s,\
+                `Id_Estado`=%s,\
+                `Id_Operacion_Comercial`=%s,\
+                `Id_Propietario`=%s,\
+                `Direccion`=%s,\
+                `Habitaciones`=%s,\
+                `Baños`=%s,\
+                `Patio`=%s,\
+                `Cochera`=%s \
+                 WHERE  Id_Propiedad= %s;"
+            val = (tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage,adress)
+            envio.execute(sql,val) 
             dao.inmobiliaria.commit()
             dao.inmobiliaria.close()
         except ValueError as e:
