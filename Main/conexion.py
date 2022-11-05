@@ -101,6 +101,7 @@ class DAO():
                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
             val = (tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)
             cursor1.execute(sql,val) 
+            cursor1.close()
             dao.inmobiliaria.commit()
             dao.inmobiliaria.close()
         except ValueError as e:
@@ -136,6 +137,7 @@ class DAO():
                  WHERE  Id_Propiedad= %s;"
             val = (tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage,adress)
             envio.execute(sql,val) 
+            envio.close()
             dao.inmobiliaria.commit()
             dao.inmobiliaria.close()
         except ValueError as e:
@@ -158,6 +160,7 @@ class DAO():
             sql = "DELETE FROM Propiedad WHERE Id_Propiedad = %s"
             val = (adress,)
             envio.execute(sql,val)
+            envio.close()
             dao.inmobiliaria.commit()
             dao.inmobiliaria.close()
         except ValueError as e:
@@ -187,6 +190,7 @@ class DAO():
                 envio = self.inmobiliaria.cursor()
                 envio.execute(sql)
                 Resul = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                envio.close()
                 self.inmobiliaria.close()
                 return Resul
             except Error as e:
@@ -215,6 +219,7 @@ class DAO():
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                envio.close()
                 self.inmobiliaria.close()
                 return Resultado
             except Error as e:
@@ -243,6 +248,7 @@ class DAO():
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                envio.close()
                 self.inmobiliaria.close()
                 return Resultado
             except Error as e:
@@ -271,6 +277,7 @@ class DAO():
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                envio.close()
                 self.inmobiliaria.close()
                 return Resultado
             except Error as e:
@@ -299,6 +306,7 @@ class DAO():
                 AND Propiedad.Id_Tipo= Tipo.Id_Tipo;"
                 envio.execute(sql)
                 Resultado = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
+                envio.close()
                 self.inmobiliaria.close()
                 return Resultado
             except Error as e:
