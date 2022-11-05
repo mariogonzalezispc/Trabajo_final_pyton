@@ -105,11 +105,11 @@ while True:                             # generamos un while para uso continuo
                             print(" 1 Alquiler")
                             print(" 2 Venta")
                             operacion = int(input(" Ingrese tipo operacion :")) 
-                            estado=int(input(" Ingrese tipo operacion :")) 
-                            # if operacion==1:
-                            #     estado='1'
-                            # elif operacion==2:
-                            #     estado='3'    
+                            #estado=int(input(" Ingrese tipo operacion :")) 
+                            if operacion==1:
+                                 estado='1'
+                            elif operacion==2:
+                                 estado='3'    
                             dao.carga_propiedad(
                                 tipo,
                                 estado,
@@ -120,15 +120,54 @@ while True:                             # generamos un while para uso continuo
                                 banio,
                                 patio,
                                 garage)
-                            #dao.carga_propiedad()
                             break
                         except ValueError as e:
                             print("Solo se permiten numeros")
                             print("Reintente !")
             elif opcion == 2:
-                print("Modifica Propiedad administrar")
+                dao=DAO()
+                direccion = input("Ingrese direccion de la propiedad : ")
+                while True:
+                        try:
+                            propietario = int(input("Ingrese el numero de propietario : "))
+                            habitaciones = int(input("Ingrese cantidad de habitaciones : "))
+                            banio= int(input("Ingrese cantidad de baños : "))
+                            patio = int(input("Ingrese cantidad de patios : "))
+                            garage = int(input("Ingrese cantidad de garages : "))
+                            print(" Tipo de propiedad : ")
+                            print(" 1 para Residencial")
+                            print(" 2 para Comercial")
+                            tipo = int(input(" Ingrese tipo de propiedad :"))
+                            print(" Estado administrativo : ")
+                            print(" 1 Alquiler")
+                            print(" 2 Venta")
+                            operacion = int(input(" Ingrese tipo operacion :")) 
+                            #estado=int(input(" Ingrese tipo operacion :")) 
+                            if operacion==1:
+                                 estado='1'
+                            elif operacion==2:
+                                 estado='3'    
+                            dao.modifica_propiedad(
+                                tipo,
+                                estado,
+                                operacion,
+                                propietario,
+                                direccion,
+                                habitaciones,
+                                banio,
+                                patio,
+                                garage)
+                            break
+                        except ValueError as e:
+                            print("Solo se permiten numeros")
+                            print("Reintente !")
             elif opcion == 3:
-                print("Borra propiedad")
+                dao=DAO()
+                try:
+                    direccion = input("Ingrese direccion de la propiedad : ")
+                    dao.borra_propiedad(direccion)
+                except  (ValueError) as e:                  # tratamos el error y lo cargamos en variable "e"
+                    time.sleep(3) 
             elif opcion == 4:
                 dao = DAO()
                 try:

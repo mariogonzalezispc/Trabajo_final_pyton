@@ -98,7 +98,7 @@ class DAO():
                 `Baños`,\
                 `Patio`,\
                 `Cochera`) \
-                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
             val = (tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)
             cursor1.execute(sql,val) 
             dao.inmobiliaria.commit()
@@ -137,16 +137,21 @@ class DAO():
                 print("Ocurrió un error al conectar")
                 return
 
-    def borra_propiedad(self,propiedad):
-    #def carga_propiedad(self):
+    def borra_propiedad(self,direccion):
         dao= DAO()
         try:
             dao.inmobiliaria.connect()
-            cursor1=dao.inmobiliaria.cursor() 
-            sql= "DELETE FROM `inmobiliaria`.`Propiedad`\
-                 WHERE  `Id_Propiedad`=20;"
-            val = (propiedad)
-            cursor1.execute(sql,val) 
+            envio=dao.inmobiliaria.cursor() 
+            sql = "SELECT * FROM Propiedad WHERE Direccion = %s"
+            val = (direccion,)
+            envio.execute(sql,val) 
+            Resul = envio.fetchall()
+            for x in Resul: 
+                adress = x[0]
+
+            sql = "DELETE FROM Propiedad WHERE Id_Propiedad = %s"
+            val = (adress,)
+            envio.execute(sql,val)
             dao.inmobiliaria.commit()
             dao.inmobiliaria.close()
         except ValueError as e:
