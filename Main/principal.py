@@ -126,7 +126,7 @@ while True:                             # generamos un while para uso continuo
                             print("Reintente !")
             elif opcion == 2:
                 dao=DAO()
-                direccion = input("Ingrese direccion de la propiedad : ")
+                direccion = input("Ingrese direccion de la propiedad a modificar : ")
                 while True:
                         try:
                             propietario = int(input("Ingrese el numero de propietario : "))
