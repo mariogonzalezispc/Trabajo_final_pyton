@@ -110,22 +110,21 @@ while True:                             # generamos un while para uso continuo
                             #     estado='1'
                             # elif operacion==2:
                             #     estado='3'    
-                            dao.carga_propiedad(tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)
+                            dao.carga_propiedad(
+                                tipo,
+                                estado,
+                                operacion,
+                                propietario,
+                                direccion,
+                                habitaciones,
+                                banio,
+                                patio,
+                                garage)
                             #dao.carga_propiedad()
                             break
                         except ValueError as e:
                             print("Solo se permiten numeros")
                             print("Reintente !")
-                
-
-
-
-
-
-
-
-
-
             elif opcion == 2:
                 print("Modifica Propiedad administrar")
             elif opcion == 3:
