@@ -222,31 +222,3 @@ while True:                             # generamos un while para uso continuo
                 print("Reintente !!!!")                     # imprimo texto
                 funciones.color_blanco()                    # cambio el color del print a blanco
                 time.sleep(2)                               # demora de 3 segundos
-
-
-
-# def carga_propiedad(self):
-#         dao= DAO()
-#         try:
-#             dao.inmobiliaria.connect()
-#             cursor1=dao.inmobiliaria.cursor()
-#             sql = "INSERT INTO inmobiliaria.Propiedad(\
-#                                     Propiedad.Id_Tipo,\
-#                                     Propiedad.Id_Estado,\
-#                                     Propiedad.Id_Operacion_Comercial,\
-#                                     Propiedad.Id_Propietario,\
-#                                     Propiedad.Direccion,\
-#                                     Propiedad.Habitaciones,\
-#                                     Propiedad.Baños,\
-#                                     Propiedad.Patio,\
-#                                     Propiedad.Cochera \
-#                                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-#             #val = [(tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)]
-#             val = ('1','1','1','14','Montecarlo 1123','7','1','1','0')
-#             cursor1.execute(sql,val)
-#             dao.inmobiliaria.commit()
-#             dao.inmobiliaria.close()
-#         except ValueError as e:
-#                 print("No de pudo conectar a la base de datos !!", e)
-#                 print("Ocurrió un error al conectar")
-#                 return
