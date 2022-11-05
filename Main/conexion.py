@@ -110,8 +110,7 @@ class DAO():
 
 
 
-    def modifica_propiedad(self,direccion):
-    #def carga_propiedad(self):
+    def modifica_propiedad(self,tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage):
         dao= DAO()
         try:
             dao.inmobiliaria.connect()
@@ -122,20 +121,20 @@ class DAO():
             Resul = envio.fetchall()
             for x in Resul: 
                 adress = x[0]
-  
+
             sql= "UPDATE `inmobiliaria`.`Propiedad` \
                 SET \
-                `Id_Tipo`,\
-                `Id_Estado`,\
-                `Id_Operacion_Comercial`,\
-                `Id_Propietario`,\
-                `Direccion`,\
-                `Habitaciones`,\
-                `Baños`,\
-                `Patio`,\
-                `Cochera` \
+                `Id_Tipo`=%s,\
+                `Id_Estado`=%s,\
+                `Id_Operacion_Comercial`=%s,\
+                `Id_Propietario`=%s,\
+                `Direccion`=%s,\
+                `Habitaciones`=%s,\
+                `Baños`=%s,\
+                `Patio`=%s,\
+                `Cochera`=%s \
                  WHERE  Id_Propiedad= %s;"
-            val = (adress)
+            val = (tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage,adress)
             envio.execute(sql,val) 
             dao.inmobiliaria.commit()
             dao.inmobiliaria.close()

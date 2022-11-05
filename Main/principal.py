@@ -126,9 +126,10 @@ while True:                             # generamos un while para uso continuo
                             print("Reintente !")
             elif opcion == 2:
                 dao=DAO()
-                direccion = input("Ingrese direccion de la propiedad a modificar : ")
+                # direccion = input("Ingrese direccion de la propiedad a modificar : ")
                 while True:
                         try:
+                            direccion = input("Ingrese direccion de la propiedad a modificar : ")
                             propietario = int(input("Ingrese el numero de propietario : "))
                             habitaciones = int(input("Ingrese cantidad de habitaciones : "))
                             banio= int(input("Ingrese cantidad de baños : "))
@@ -142,7 +143,6 @@ while True:                             # generamos un while para uso continuo
                             print(" 1 Alquiler")
                             print(" 2 Venta")
                             operacion = int(input(" Ingrese tipo operacion :")) 
-                            #estado=int(input(" Ingrese tipo operacion :")) 
                             if operacion==1:
                                  estado='1'
                             elif operacion==2:
