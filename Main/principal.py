@@ -88,7 +88,44 @@ while True:                             # generamos un while para uso continuo
                 traer=dao.prueba_conexion()
                 time.sleep(5)               
             elif opcion == 1:
-                print("Carga de propiedad para administrar")
+                dao=DAO()
+                direccion = input("Ingrese direccion de la propiedad : ")
+                while True:
+                        try:
+                            propietario = int(input("Ingrese el numero de propietario : "))
+                            habitaciones = int(input("Ingrese cantidad de habitaciones : "))
+                            banio= int(input("Ingrese cantidad de baños : "))
+                            patio = int(input("Ingrese cantidad de patios : "))
+                            garage = int(input("Ingrese cantidad de garages : "))
+                            print(" Tipo de propiedad : ")
+                            print(" 1 para Residencial")
+                            print(" 2 para Comercial")
+                            tipo = int(input(" Ingrese tipo de propiedad :"))
+                            print(" Estado administrativo : ")
+                            print(" 1 Alquiler")
+                            print(" 2 Venta")
+                            operacion = int(input(" Ingrese tipo operacion :")) 
+                            estado=int(input(" Ingrese tipo operacion :")) 
+                            # if operacion==1:
+                            #     estado='1'
+                            # elif operacion==2:
+                            #     estado='3'    
+                            dao.carga_propiedad(tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)
+                            #dao.carga_propiedad()
+                            break
+                        except ValueError as e:
+                            print("Solo se permiten numeros")
+                            print("Reintente !")
+                
+
+
+
+
+
+
+
+
+
             elif opcion == 2:
                 print("Modifica Propiedad administrar")
             elif opcion == 3:
@@ -139,13 +176,39 @@ while True:                             # generamos un while para uso continuo
                 funciones.color_blanco()
                 time.sleep(2)  
             funciones.limpia()
-        except  (ValueError) as e:                          # tratamo el error y lo cargamos en variable "e"
+        except  (ValueError) as e:                          # tratamos el error y lo cargamos en variable "e"
                 funciones.color_rojo()                      # cambio color del print a rojo
-                print("El sistema solo acepta numeros ", e) 
-                # print("El sistema solo acepta numeros ", e) # imprimo texto mas error
+                print("El sistema solo acepta numeros ", e) # imprimo texto mas error 
                 print()                                     # salto de linea
                 funciones.color_verde()                     # cambio el color del print a verde
                 print("Reintente !!!!")                     # imprimo texto
                 funciones.color_blanco()                    # cambio el color del print a blanco
                 time.sleep(2)                               # demora de 3 segundos
 
+
+
+# def carga_propiedad(self):
+#         dao= DAO()
+#         try:
+#             dao.inmobiliaria.connect()
+#             cursor1=dao.inmobiliaria.cursor()
+#             sql = "INSERT INTO inmobiliaria.Propiedad(\
+#                                     Propiedad.Id_Tipo,\
+#                                     Propiedad.Id_Estado,\
+#                                     Propiedad.Id_Operacion_Comercial,\
+#                                     Propiedad.Id_Propietario,\
+#                                     Propiedad.Direccion,\
+#                                     Propiedad.Habitaciones,\
+#                                     Propiedad.Baños,\
+#                                     Propiedad.Patio,\
+#                                     Propiedad.Cochera \
+#                                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+#             #val = [(tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)]
+#             val = ('1','1','1','14','Montecarlo 1123','7','1','1','0')
+#             cursor1.execute(sql,val)
+#             dao.inmobiliaria.commit()
+#             dao.inmobiliaria.close()
+#         except ValueError as e:
+#                 print("No de pudo conectar a la base de datos !!", e)
+#                 print("Ocurrió un error al conectar")
+#                 return

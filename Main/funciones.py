@@ -63,8 +63,8 @@ def rellenar3():
     try:
         init()
         print(Fore.WHITE +"-",end="")
-        for i in range(114):
-            if i < 113:
+        for i in range(119):
+            if i < 118:
                 print(Fore.WHITE +"-",end="")
         print(Fore.WHITE +"-")
     except  (ValueError) as e:
@@ -109,10 +109,10 @@ def muestra(mostrar):
         dato_dia = tiempo.strftime("%d/%m/%Y %H:%M:%S")# formato de fecha y hora
         limpia()
         rellenar3()                 # relleno los espacios para poner el tabulador
-        print("| Sistema de gestion Inmobiliaria              Listado general de propiedades                 " +
+        print("| Sistema de gestion Inmobiliaria                Listado general de propiedades                    " +
         dato_dia+" |")        # declaro fecha y hora de apertura
         rellenar3()                 # relleno los espacios para poner el tabulador
-        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Tipo     |    Estado   |   Propietario   |  Contacto  |" )
+        print("|   Direccion Propiedad  | Hab | Baño | Patio | Garage |    Tipo     |    Estado   | N° |   Propietario   |  Contacto  |" )
         rellenar3()                 # relleno los espacios para poner el tabulador
         for x in mostrar:           # inicio el recorrido de la lista de regreso de la BD
                 init()  
@@ -154,12 +154,21 @@ def muestra(mostrar):
                 print(Fore.GREEN + x[6],end="")     # Estado de la propiedad para administrar
                 rellenar1(relleno)                  # relleno los espacios para poner el tabulador 
 
-                relleno = 15-len(x[7])              # calculo cantidad de relleno
-                print(Fore.GREEN + x[7],end="")     # Propietario
+                id_prop= str(x[7])
+                relleno = 2-len(id_prop)            # calculo cantidad de relleno
+                if (x[7])< 10:
+                    print(Fore.GREEN +" "+id_prop,end="")
+                    relleno = relleno-1
+                else:   
+                    print(Fore.GREEN + id_prop,end="")  # ID_del propietario
                 rellenar1(relleno)                  # relleno los espacios para poner el tabulador
 
-                relleno = 10-len(x[8])              # calculo cantidad de relleno
-                print(Fore.GREEN + x[8],end="")     # Contacto
+                relleno = 15-len(x[8])              # calculo cantidad de relleno
+                print(Fore.GREEN + x[8],end="")     # Propietario
+                rellenar1(relleno)                  # relleno los espacios para poner el tabulador
+
+                relleno = 10-len(x[9])              # calculo cantidad de relleno
+                print(Fore.GREEN + x[9],end="")     # Contacto
                 rellenar2(relleno)                  # relleno los espacios para poner el tabulador
         rellenar3()                                 # relleno los espacios para poner el tabulador          
         opcion = input("Presione ENTER para continuar : ")

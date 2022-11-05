@@ -81,6 +81,80 @@ class DAO():
                 print("Ocurrió un error al conectar")
                 return 
 
+
+    def carga_propiedad(self,tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage):
+    #def carga_propiedad(self):
+        dao= DAO()
+        try:
+            dao.inmobiliaria.connect()
+            cursor1=dao.inmobiliaria.cursor() 
+            sql= "INSERT INTO `inmobiliaria`.`Propiedad` \
+                (`Id_Tipo`,\
+                `Id_Estado`,\
+                `Id_Operacion_Comercial`,\
+                `Id_Propietario`,\
+                `Direccion`,\
+                `Habitaciones`,\
+                `Baños`,\
+                `Patio`,\
+                `Cochera`) \
+                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+            val = (tipo,estado,operacion,propietario,direccion,habitaciones,banio,patio,garage)
+            cursor1.execute(sql,val) 
+            dao.inmobiliaria.commit()
+            dao.inmobiliaria.close()
+        except ValueError as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+
+
+
+    def modifica_propiedad(self,propiedad):
+    #def carga_propiedad(self):
+        dao= DAO()
+        try:
+            dao.inmobiliaria.connect()
+            cursor1=dao.inmobiliaria.cursor() 
+            sql= "UPDATE `inmobiliaria`.`Propiedad` \
+                SET \
+                `Id_Tipo`,\
+                `Id_Estado`,\
+                `Id_Operacion_Comercial`,\
+                `Id_Propietario`,\
+                `Direccion`,\
+                `Habitaciones`,\
+                `Baños`,\
+                `Patio`,\
+                `Cochera` \
+                 WHERE  `Id_Propiedad`= (%s);"
+            val = (propiedad)
+            cursor1.execute(sql,val) 
+            dao.inmobiliaria.commit()
+            dao.inmobiliaria.close()
+        except ValueError as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+
+    def borra_propiedad(self,propiedad):
+    #def carga_propiedad(self):
+        dao= DAO()
+        try:
+            dao.inmobiliaria.connect()
+            cursor1=dao.inmobiliaria.cursor() 
+            sql= "DELETE FROM `inmobiliaria`.`Propiedad`\
+                 WHERE  `Id_Propiedad`=20;"
+            val = (propiedad)
+            cursor1.execute(sql,val) 
+            dao.inmobiliaria.commit()
+            dao.inmobiliaria.close()
+        except ValueError as e:
+                print("No de pudo conectar a la base de datos !!", e)
+                print("Ocurrió un error al conectar")
+                return
+
+
     def listado_propiedades(self):
             try:
                 self.inmobiliaria.connect()
@@ -92,12 +166,13 @@ class DAO():
                 Propiedad.Cochera,\
                 Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
+                Propietario.Id_Propietario, \
                 Propietario.Nombre,\
                 Propietario.Contacto\
-                FROM Propiedad, Propietario, Tipo, Estado\
+                FROM Propiedad, Propietario, Tipo, Estado \
                 WHERE Propiedad.Id_Propietario = Propietario.Id_Propietario \
-                AND Propiedad.Id_Tipo = Tipo.Id_Tipo\
-                AND Propiedad.Id_Estado = Estado.Id_Estado"
+                AND Propiedad.Id_Tipo = Tipo.Id_Tipo \
+                AND Propiedad.Id_Estado = Estado.Id_Estado;"
                 envio = self.inmobiliaria.cursor()
                 envio.execute(sql)
                 Resul = envio.fetchall()  # cargo en la variable retorno el array de regreso BD
@@ -120,6 +195,7 @@ class DAO():
                 Propiedad.Cochera,\
                 Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
+                Propietario.Id_Propietario, \
                 Propietario.Nombre,\
                 Propietario.Contacto\
                 FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 2 \
@@ -147,6 +223,7 @@ class DAO():
                 Propiedad.Cochera,\
                 Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
+                Propietario.Id_Propietario, \
                 Propietario.Nombre,\
                 Propietario.Contacto\
                 FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 4\
@@ -174,6 +251,7 @@ class DAO():
                 Propiedad.Cochera,\
                 Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
+                Propietario.Id_Propietario, \
                 Propietario.Nombre,\
                 Propietario.Contacto\
                 FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 1\
@@ -201,6 +279,7 @@ class DAO():
                 Propiedad.Cochera,\
                 Tipo.Nombre_Tipo,\
                 Estado.Nombre_Estado,\
+                Propietario.Id_Propietario, \
                 Propietario.Nombre,\
                 Propietario.Contacto\
                 FROM Propiedad,Estado,Propietario,Tipo WHERE Propiedad.Id_Estado = 3 \
