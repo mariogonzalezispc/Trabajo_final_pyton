@@ -1,21 +1,22 @@
+# ---------------------------------------------------------------------
 #  Atencion para usar este programa debemos incluir ciertas librerias
-#--------------------------------------------------------------
+#----------------------------------------------------------------------
 #  Para la conexion de la base de datos instalar el conector 
 #  metodo de instalacion
 #  python -m pip install PyMySQL
 #  o
 #  pip install PyMySQL 
-#--------------------------------------------------------------
+#----------------------------------------------------------------------
 #  para la base de datos utilizamos este conector el anterior comentado 
 #  metodo de instalacion 
 #  pip install mysql-connector-python
-#--------------------------------------------------------------
+#----------------------------------------------------------------------
 #  Colorama para dar color al texto en la consola
 #  metodo de instalacion 
 #  python -m pip install colorama  
 #  o
 #  pip install colorama
-# -------------------------------------------------------------
+# ---------------------------------------------------------------------
 #  Base de datos
 #  la base de datos de este proyecto es remota 
 #  la direccion :   mgalarmasserver1.ddns.net
@@ -26,6 +27,7 @@
 #  En caso de no funcionar la conexion y dar error UTF( no soportado)
 #  instalar el conector 
 #  pip3 install mysql-connector-python==8.0.29
+# ---------------------------------------------------------------------
 
 from conexion import DAO
 import funciones
@@ -78,13 +80,12 @@ def menu_opciones():            # inicio menu de opciones en grafico para consol
 funciones.limpia()
 cabecera_presentacion()
 
-
-while True:                             # generamos un while para uso continuo
-        funciones.limpia()              # limpia la pantalla de la consola
-        menu_opciones()                 # llamamos la funcion menu de opciones
-        print()                         # salto de linea
-        print()                         # salto de linea
-        try:                            # inicio del try
+while True:                                     # generamos un while para uso continuo
+        funciones.limpia()                      # limpia la pantalla de la consola
+        menu_opciones()                         # llamamos la funcion menu de opciones
+        print()                                 # salto de linea
+        print()                                 # salto de linea
+        try:                                    # inicio del try
             opcion = int(input("Ingrese opcion : "))# Input para que usuario cargue opcion
             if opcion == 0:
                 dao=DAO()
@@ -108,7 +109,6 @@ while True:                             # generamos un while para uso continuo
                             print(" 1 Alquiler")
                             print(" 2 Venta")
                             operacion = int(input(" Ingrese tipo operacion :")) 
-                            #estado=int(input(" Ingrese tipo operacion :")) 
                             if operacion==1:
                                  estado='1'
                             elif operacion==2:
@@ -129,7 +129,6 @@ while True:                             # generamos un while para uso continuo
                             print("Reintente !")
             elif opcion == 2:
                 dao=DAO()
-                # direccion = input("Ingrese direccion de la propiedad a modificar : ")
                 while True:
                         try:
                             direccion = input("Ingrese direccion de la propiedad a modificar : ")

@@ -1,8 +1,5 @@
-
-
 # Herramienta utilizada para diseño y pruebas de la base de datos 
 # HEIDISQL
-
 
 /*----------------------------------------------------------------
 Creo la base de datos
