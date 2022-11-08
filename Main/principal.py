@@ -23,6 +23,9 @@
 #  Base de datos nombre : inmobiliaria                                    
 #  Usuario : ispc_inmobiliaria     
 #  Contraseña : ispc_inmobiliaria 
+#  En caso de no funcionar la conexion y dar error UTF( no soportado)
+#  instalar el conector 
+#  pip3 install mysql-connector-python==8.0.29
 
 from conexion import DAO
 import funciones
