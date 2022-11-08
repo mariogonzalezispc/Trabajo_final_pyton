@@ -25,16 +25,14 @@
 #  Contraseña : ispc_inmobiliaria 
 
 
+
+#import mariadb 
+#from mariadb.connect import Error
 #import pymysql                         # importo el conector de python con Mysql
 import mysql.connector                  # importo el conector de python con Mysql
 from mysql.connector import Error
 import funciones
 # import time                     # importo la libreria rutinas de delay
-
-
-
-
-
 
 class DAO():
     def __init__(self):
@@ -49,7 +47,7 @@ class DAO():
                 print()                                                     # salto de linea
                 print("Conexion Exitosa !!! ")                              # imprimo mensaje
                 print("Version: ", db_Info)                                 # imprimo mensaje + db_Info
-                cursor = self.inmobiliaria.cursor()                                # inicio cursor de la bd
+                cursor = self.inmobiliaria.cursor()                         # inicio cursor de la bd
                 cursor.execute("select database();")                        # selecciono la base de datos declarada
                 record = cursor.fetchone()                                  # grabo en record el retorno de cursor
                 print("Conectado a la base de datos: ", record)             # imprimo mensaje + nombre de la BD conectada
