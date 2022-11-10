@@ -1,3 +1,19 @@
+
+
+# Herramienta utilizada para diseño y pruebas de la base de datos 
+# HEIDISQL
+
+
+/*----------------------------------------------------------------
+Creo la base de datos
+----------------------------------------------------------------*/
+CREATE DATABASE inmobiliaria;
+
+/*----------------------------------------------------------------
+Seleciono la base de datos
+----------------------------------------------------------------*/
+USE inmobiliaria;
+
 /*----------------------------------------------------------------
 Creo Tabla Tipo
 ----------------------------------------------------------------*/
@@ -78,6 +94,13 @@ Modifico un registro en la base de datos en la tabla propiedad
 UPDATE `inmobiliaria`.`Propiedad` 
 SET `Direccion`='Dias de la fuente 1346' 
 WHERE  `Id_Propiedad`=1;
+
+/*----------------------------------------------------------------
+Borro un registro en la base de datos en la tabla propiedad
+----------------------------------------------------------------*/
+
+DELETE FROM Propiedad WHERE Id_Propiedad = 23
+
 
 /*----------------------------------------------------------------
 Inserto un registro en la base de datos en la tabla propietario
